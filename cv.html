@@ -1,0 +1,614 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <title>CV - Seokhyun Choung</title>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta name="description" content="Curriculum Vitae of Seokhyun Choung - Postdoctoral Researcher in Computational Catalysis">
+    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/css/bootstrap.min.css" rel="stylesheet">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0-beta3/css/all.min.css">
+    <style>
+        :root {
+            --text: #000;
+            --bg: #fff;
+            --brand: #0F0F70;
+            --accent: #ff6600;
+            --primary-color: #f78f1e;
+            --accent-color: #f9a54b;
+            --text-primary: #000000;
+            --text-secondary: #000000;
+            --text-muted: #000000;
+            --bg-primary: #ffffff;
+            --bg-secondary: #f5f5f5;
+            --bg-card: #fafafa;
+            --border-light: #e0e0e0;
+            --border-lighter: #cccccc;
+        }
+
+        [data-theme="dark"] {
+            --text: #fff;
+            --bg: #0b0b0b;
+            --brand: #0F0F70;
+            --accent: #ff6600;
+            --text-primary: #ffffff;
+            --text-secondary: #ffffff;
+            --text-muted: #ffffff;
+            --bg-primary: #1a1a1a;
+            --bg-secondary: #2a2a2a;
+            --bg-card: #212121;
+            --border-light: #3c3c3c;
+            --border-lighter: #505050;
+        }
+
+        body {
+            color: var(--text);
+            background: var(--bg);
+        }
+
+        .nav-link.active {
+            background: var(--accent) !important;
+            color: #fff !important;
+            border-radius: 5px;
+        }
+
+        .nav-link.active:hover, .nav-link.active:focus {
+            background: var(--accent) !important;
+            color: #fff !important;
+        }
+
+        body {
+            font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, sans-serif;
+            color: var(--text-primary);
+            line-height: 1.6;
+            background-color: var(--bg-primary);
+        }
+
+        /* Custom navbar */
+        .custom-navbar {
+            background-color: var(--bg-primary) !important;
+            box-shadow: 0 1px 3px rgba(0,0,0,0.1);
+            padding: 1rem 0;
+            border-bottom: 1px solid var(--border-light);
+        }
+
+        [data-theme="dark"] .custom-navbar {
+            box-shadow: 0 1px 3px rgba(0,0,0,0.3);
+        }
+
+        .navbar-brand {
+            color: var(--text-primary) !important;
+        }
+
+        .theme-toggle {
+            background: none;
+            border: 2px solid var(--text-secondary);
+            color: var(--text-secondary);
+            padding: 0.5rem;
+            border-radius: 50%;
+            width: 40px;
+            height: 40px;
+            cursor: pointer;
+            transition: all 0.3s ease;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+        }
+
+        .theme-toggle:hover {
+            border-color: var(--primary-color);
+            color: var(--primary-color);
+        }
+
+        .navbar-nav .nav-link {
+            color: var(--text-secondary);
+            font-weight: 500;
+            margin: 0 1rem;
+            transition: color 0.3s;
+        }
+
+        .navbar-nav .nav-link:hover {
+            color: var(--primary-color);
+        }
+
+        .custom-container {
+            max-width: 1000px;
+            margin: 0 auto;
+            padding: 2rem;
+        }
+
+        .cv-header {
+            background: linear-gradient(135deg, var(--primary-color) 0%, var(--accent-color) 100%);
+            color: white;
+            padding: 3rem 0;
+            margin-bottom: 2rem;
+            border-radius: 15px;
+            text-align: center;
+        }
+
+        .download-btn {
+            background: rgba(255,255,255,0.2);
+            border: 2px solid white;
+            color: white;
+            padding: 0.75rem 1.5rem;
+            border-radius: 25px;
+            text-decoration: none;
+            font-weight: 600;
+            transition: all 0.3s;
+            display: inline-flex;
+            align-items: center;
+            gap: 0.5rem;
+        }
+
+        .download-btn:hover {
+            background: white;
+            color: var(--primary-color);
+            transform: translateY(-2px);
+            box-shadow: 0 8px 20px rgba(0,0,0,0.2);
+        }
+
+        .cv-section {
+            background: var(--bg-card);
+            border-radius: 12px;
+            padding: 2rem;
+            margin-bottom: 2rem;
+            box-shadow: 0 8px 25px rgba(0,0,0,0.3);
+            border: 1px solid var(--border-light);
+        }
+
+        .section-title {
+            color: var(--primary-color);
+            font-weight: 700;
+            margin-bottom: 1.5rem;
+            padding-bottom: 0.5rem;
+            border-bottom: 2px solid var(--border-light);
+            display: flex;
+            align-items: center;
+            gap: 0.5rem;
+        }
+
+        .cv-item {
+            margin-bottom: 2rem;
+            padding-bottom: 1.5rem;
+            border-bottom: 1px solid var(--border-light);
+        }
+
+        .cv-item:last-child {
+            border-bottom: none;
+            margin-bottom: 0;
+        }
+
+        .cv-item-header {
+            display: flex;
+            justify-content: space-between;
+            align-items: start;
+            margin-bottom: 0.5rem;
+        }
+
+        .cv-title {
+            font-weight: 600;
+            color: var(--text-primary);
+            margin-bottom: 0.25rem;
+        }
+
+        .cv-organization {
+            color: var(--primary-color);
+            font-weight: 500;
+        }
+
+        .cv-location {
+            color: var(--text-secondary);
+            font-size: 0.9rem;
+        }
+
+        .cv-period {
+            color: var(--text-secondary);
+            font-weight: 500;
+            font-size: 0.9rem;
+            text-align: right;
+            white-space: nowrap;
+        }
+
+        .cv-description {
+            margin-top: 0.5rem;
+            color: var(--text-secondary);
+        }
+
+        .cv-description ul {
+            margin: 0.5rem 0 0 1rem;
+            padding: 0;
+        }
+
+        .skill-category {
+            background: var(--bg-light);
+            border-radius: 8px;
+            padding: 1.5rem;
+            margin-bottom: 1.5rem;
+        }
+
+        .skill-category:last-child {
+            margin-bottom: 0;
+        }
+
+        .skill-category h6 {
+            color: var(--primary-color);
+            font-weight: 600;
+            margin-bottom: 1rem;
+        }
+
+        .skill-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(200px, 1fr));
+            gap: 0.5rem;
+        }
+
+        .skill-item {
+            background: white;
+            padding: 0.5rem 1rem;
+            border-radius: 6px;
+            font-size: 0.9rem;
+            border-left: 3px solid var(--primary-color);
+        }
+
+        .contact-info {
+            background: var(--bg-light);
+            border-radius: 10px;
+            padding: 1.5rem;
+            margin-bottom: 2rem;
+        }
+
+        .contact-item {
+            display: flex;
+            align-items: center;
+            gap: 0.75rem;
+            margin-bottom: 0.75rem;
+        }
+
+        .contact-item:last-child {
+            margin-bottom: 0;
+        }
+
+        .contact-icon {
+            color: var(--primary-color);
+            width: 20px;
+        }
+
+        .award-item {
+            background: linear-gradient(135deg, #e8f4ff 0%, #f0f8ff 100%);
+            border-left: 4px solid var(--primary-color);
+            padding: 1rem 1.5rem;
+            border-radius: 0 8px 8px 0;
+            margin-bottom: 1rem;
+        }
+
+        .conference-item {
+            background: var(--bg-light);
+            border-radius: 8px;
+            padding: 1.5rem;
+            margin-bottom: 1.5rem;
+            border-left: 4px solid var(--primary-color);
+        }
+
+        .conference-title {
+            font-weight: 600;
+            color: var(--text-primary);
+            margin-bottom: 0.5rem;
+        }
+
+        .conference-details {
+            color: var(--text-secondary);
+            font-size: 0.9rem;
+            margin-bottom: 0.25rem;
+        }
+
+        .presentation-type {
+            display: inline-block;
+            background: var(--primary-color);
+            color: white;
+            padding: 0.2rem 0.6rem;
+            border-radius: 12px;
+            font-size: 0.8rem;
+            font-weight: 500;
+        }
+
+        /* Responsive */
+        @media (max-width: 768px) {
+            .navbar-nav {
+                text-align: center;
+            }
+
+            .navbar-nav .nav-link {
+                margin: 0.5rem 0;
+            }
+
+            .cv-item-header {
+                flex-direction: column;
+                align-items: start;
+            }
+
+            .cv-period {
+                text-align: left;
+                margin-top: 0.25rem;
+            }
+
+            .skill-grid {
+                grid-template-columns: 1fr;
+            }
+        }
+
+        @media print {
+            .custom-navbar,
+            .download-btn {
+                display: none;
+            }
+            
+            .cv-header {
+                background: var(--primary-color) !important;
+                -webkit-print-color-adjust: exact;
+            }
+            
+            .cv-section {
+                box-shadow: none;
+                border: 1px solid #ddd;
+                page-break-inside: avoid;
+            }
+        }
+    </style>
+</head>
+<body>
+    <!-- Navbar -->
+    <nav class="navbar navbar-expand-lg custom-navbar sticky-top">
+        <div class="container">
+            <a class="navbar-brand fw-bold" href="index.html">Seokhyun Choung</a>
+            <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarNav">
+                <span class="navbar-toggler-icon"></span>
+            </button>
+            <div class="collapse navbar-collapse" id="navbarNav">
+                <ul class="navbar-nav ms-auto">
+                    <li class="nav-item">
+                        <a class="nav-link" href="about.html">About</a>
+                    </li>
+                    <li class="nav-item">
+                        <a class="nav-link" href="research.html">Research</a>
+                    </li>
+                    <li class="nav-item">
+                        <a class="nav-link" href="publications.html">Publications</a>
+                    </li>
+                    <li class="nav-item">
+                        <a class="nav-link active" href="cv.html" style="background: var(--accent); color: #fff; border-radius: 5px;">CV</a>
+                    </li>
+                    <li class="nav-item">
+                        <a class="nav-link" href="teaching.html">Teaching</a>
+                    </li>
+                    <li class="nav-item">
+                        <button class="theme-toggle ms-3" onclick="toggleTheme()" id="theme-toggle">
+                            <i class="fas fa-moon"></i>
+                        </button>
+                    </li>
+                </ul>
+            </div>
+        </div>
+    </nav>
+
+    <main class="container custom-container">
+        <!-- Header -->
+        <section class="cv-header">
+            <div class="container">
+                <h1 class="display-4 fw-bold mb-2">Curriculum Vitae</h1>
+                <p class="lead mb-4">Seokhyun Choung</p>
+                <a href="#" class="download-btn" onclick="window.print(); return false;">
+                    <i class="fas fa-download"></i>
+                    Download PDF
+                </a>
+            </div>
+        </section>
+
+        <!-- Contact Information -->
+        <section class="contact-info">
+            <div class="row">
+                <div class="col-md-6">
+                    <div class="contact-item">
+                        <i class="fas fa-envelope contact-icon"></i>
+                        <span>schoung9967@snu.ac.kr</span>
+                    </div>
+                    <div class="contact-item">
+                        <i class="fas fa-phone contact-icon"></i>
+                        <span>+82-10-4377-9967</span>
+                    </div>
+                </div>
+                <div class="col-md-6">
+                    <div class="contact-item">
+                        <i class="fab fa-linkedin contact-icon"></i>
+                        <a href="https://www.linkedin.com/in/seokhyun-choung-635919174/" target="_blank" class="text-decoration-none">seokhyun-choung-635919174</a>
+                    </div>
+                    <div class="contact-item">
+                        <i class="fab fa-github contact-icon"></i>
+                        <a href="https://github.com/s-choung" target="_blank" class="text-decoration-none">s-choung</a>
+                    </div>
+                </div>
+            </div>
+        </section>
+
+        <!-- Profile -->
+        <section class="cv-section">
+            <h2 class="section-title">
+                <i class="fas fa-user-circle"></i>
+                Profile
+            </h2>
+            <p>Post-Doctoral Researcher developing next-generation catalysts to combat climate change through computational design. I leverage machine learning, multiscale simulations, and ab-initio calculations to discover efficient catalytic materials for clean fuel production and sustainable chemical processes.</p>
+        </section>
+
+        <!-- Experience -->
+        <section class="cv-section">
+            <h2 class="section-title">
+                <i class="fas fa-briefcase"></i>
+                Experience
+            </h2>
+            
+            <div class="cv-item">
+                <div class="cv-item-header">
+                    <div>
+                        <div class="cv-title">Post-Doctoral Researcher</div>
+                        <div class="cv-organization">Seoul National University</div>
+                        <div class="cv-location">Seoul, South Korea</div>
+                    </div>
+                    <div class="cv-period">2024 - Present</div>
+                </div>
+                <div class="cv-description">
+                    <ul>
+                        <li>Multiscale catalysis simulation for catalyst and energy materials design</li>
+                        <li>Development of machine learning potentials for heterogeneous catalysis</li>
+                        <li>Leading research on active learning frameworks for catalyst discovery</li>
+                        <li>Collaborating with experimental groups for validation of computational predictions</li>
+                    </ul>
+                </div>
+            </div>
+        </section>
+
+        <!-- Education -->
+        <section class="cv-section">
+            <h2 class="section-title">
+                <i class="fas fa-graduation-cap"></i>
+                Education
+            </h2>
+            
+            <div class="cv-item">
+                <div class="cv-item-header">
+                    <div>
+                        <div class="cv-title">Ph.D. in Chemical Engineering</div>
+                        <div class="cv-organization">Pohang University of Science and Technology (POSTECH)</div>
+                        <div class="cv-location">Pohang, South Korea</div>
+                    </div>
+                    <div class="cv-period">2020 - 2024</div>
+                </div>
+                <div class="cv-description">
+                    <p><strong>Advisor:</strong> Prof. Jeong Woo Han</p>
+                    <p><strong>GPA:</strong> 4.0/4.3</p>
+                    <ul>
+                        <li>Computational Catalysis for electrochemical/thermal catalyst design and reaction mechanism</li>
+                        <li>Developed CEAL and CRACK frameworks for efficient catalyst screening</li>
+                        <li>Published 17+ peer-reviewed papers in high-impact journals</li>
+                    </ul>
+                </div>
+            </div>
+            
+            <div class="cv-item">
+                <div class="cv-item-header">
+                    <div>
+                        <div class="cv-title">B.Sc. in Chemical Engineering</div>
+                        <div class="cv-organization">Pohang University of Science and Technology (POSTECH)</div>
+                        <div class="cv-location">Pohang, South Korea</div>
+                    </div>
+                    <div class="cv-period">2016 - 2020</div>
+                </div>
+                <div class="cv-description">
+                    <ul>
+                        <li>Mechanism study of Platinum Catalyst in Oxygen Reduction Reaction using DFT approach</li>
+                        <li>Exchange semester at Seoul National University (2018 Fall)</li>
+                        <li>Exchange semester at Technical University of Denmark (2019 Fall)</li>
+                    </ul>
+                </div>
+            </div>
+        </section>
+
+
+        <!-- Skills -->
+        <section class="cv-section">
+            <h2 class="section-title">
+                <i class="fas fa-cogs"></i>
+                Technical Skills
+            </h2>
+            
+            <div class="skill-category">
+                <h6 style="color: var(--primary-color);">Technical Skills</h6>
+                <p style="color: var(--text-primary); line-height: 1.4;">
+                    <strong>Computational:</strong> DFT (VASP, GPAW), ML Potentials, MD, KMC • 
+                    <strong>ML/AI:</strong> PyTorch, GNNs, Deep Learning • 
+                    <strong>Programming:</strong> Python, C++, MATLAB • 
+                    <strong>Research:</strong> Heterogeneous Catalysis, Electrocatalysis, Surface Science
+                </p>
+            </div>
+            
+            <div class="skill-category">
+                <h6 style="color: var(--primary-color);">Languages</h6>
+                <p style="color: var(--text-primary);">Korean (Native), English (Fluent)</p>
+            </div>
+        </section>
+
+        <!-- Selected Publications -->
+        <section class="cv-section">
+            <h2 class="section-title">
+                <i class="fas fa-file-alt"></i>
+                Selected Publications
+            </h2>
+            <p class="text-muted mb-3"><strong>Total:</strong> 17 published papers, 1 under revision, 3 submitted</p>
+            
+            <div class="cv-item">
+                <div class="cv-title">Rise of machine learning potentials in heterogeneous catalysis: Developments, applications, and prospects</div>
+                <div class="cv-description">
+                    <strong>Choung, S.</strong>, Park, W., Moon, J., Han, J. W. (2024)<br>
+                    <em>Chemical Engineering Journal</em>, 494, 152797
+                </div>
+            </div>
+            
+            <div class="cv-item">
+                <div class="cv-title">Highly Durable Rh Single Atom Catalyst Modulated by Surface Defects on Fe-Ce Oxide Solid Solution</div>
+                <div class="cv-description">
+                    Kim, G., <strong>Choung, S.</strong>, Hwang, J., Choi, Y., Kim, S., Shin, D., Han, J. W., Lee, H. (2025)<br>
+                    <em>Angewandte Chemie International Edition</em>, 64, 2401248
+                </div>
+            </div>
+            
+            <div class="cv-item">
+                <div class="cv-title">Accelerating Li-based battery design by computationally engineering materials</div>
+                <div class="cv-description">
+                    Maiti, S., Curnan, M. T., Maiti, K., <strong>Choung, S.</strong>, Han, J. W. (2023)<br>
+                    <em>Chem</em>, 9, 3415-3460
+                </div>
+            </div>
+            
+            <div class="text-center mt-3">
+                <a href="publications.html" class="btn btn-outline-primary">View All Publications</a>
+            </div>
+        </section>
+
+
+    </main>
+
+    <!-- Footer -->
+    <footer class="text-center py-4 mt-5" style="background-color: var(--bg-secondary);">
+        <p class="mb-0">&copy; 2025 Seokhyun Choung</p>
+    </footer>
+
+    <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/js/bootstrap.bundle.min.js"></script>
+    <script>
+        // Theme toggle function
+        function toggleTheme() {
+            const html = document.documentElement;
+            const themeToggle = document.getElementById('theme-toggle');
+            const icon = themeToggle.querySelector('i');
+            
+            if (html.getAttribute('data-theme') === 'dark') {
+                html.removeAttribute('data-theme');
+                icon.className = 'fas fa-moon';
+                localStorage.setItem('theme', 'light');
+            } else {
+                html.setAttribute('data-theme', 'dark');
+                icon.className = 'fas fa-sun';
+                localStorage.setItem('theme', 'dark');
+            }
+        }
+
+        // Load saved theme
+        document.addEventListener('DOMContentLoaded', function() {
+            const savedTheme = localStorage.getItem('theme');
+            const themeToggle = document.getElementById('theme-toggle');
+            const icon = themeToggle.querySelector('i');
+            
+            if (savedTheme === 'dark') {
+                document.documentElement.setAttribute('data-theme', 'dark');
+                icon.className = 'fas fa-sun';
+            }
+        });
+    </script>
+</body>
+</html>

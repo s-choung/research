@@ -1,0 +1,535 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <title>Research - Seokhyun Choung</title>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta name="description" content="Research by Seokhyun Choung - Computational Catalysis, Machine Learning, and Materials Science">
+    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/css/bootstrap.min.css" rel="stylesheet">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0-beta3/css/all.min.css">
+    <style>
+        :root {
+            --text: #000;
+            --bg: #fff;
+            --brand: #0F0F70;
+            --accent: #ff6600;
+            --primary-color: #f78f1e;
+            --accent-color: #f9a54b;
+            --text-primary: #000000;
+            --text-secondary: #000000;
+            --text-muted: #000000;
+            --bg-primary: #ffffff;
+            --bg-secondary: #f5f5f5;
+            --bg-card: #fafafa;
+            --border-light: #e0e0e0;
+            --border-lighter: #cccccc;
+        }
+
+        [data-theme="dark"] {
+            --text: #fff;
+            --bg: #0b0b0b;
+            --brand: #0F0F70;
+            --accent: #ff6600;
+            --text-primary: #ffffff;
+            --text-secondary: #ffffff;
+            --text-muted: #ffffff;
+            --bg-primary: #1a1a1a;
+            --bg-secondary: #2a2a2a;
+            --bg-card: #212121;
+            --border-light: #3c3c3c;
+            --border-lighter: #505050;
+        }
+
+        body {
+            color: var(--text);
+            background: var(--bg);
+        }
+
+        .nav-link.active {
+            background: var(--accent) !important;
+            color: #fff !important;
+            border-radius: 5px;
+        }
+
+        .nav-link.active:hover, .nav-link.active:focus {
+            background: var(--accent) !important;
+            color: #fff !important;
+        }
+
+        body {
+            font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, sans-serif;
+            color: var(--text-primary);
+            line-height: 1.6;
+            background-color: var(--bg-primary);
+        }
+
+        /* Custom navbar */
+        .custom-navbar {
+            background-color: var(--bg-primary) !important;
+            box-shadow: 0 1px 3px rgba(0,0,0,0.1);
+            padding: 1rem 0;
+            border-bottom: 1px solid var(--border-light);
+        }
+
+        [data-theme="dark"] .custom-navbar {
+            box-shadow: 0 1px 3px rgba(0,0,0,0.3);
+        }
+
+        .navbar-brand {
+            color: var(--text-primary) !important;
+        }
+
+        .theme-toggle {
+            background: none;
+            border: 2px solid var(--text-secondary);
+            color: var(--text-secondary);
+            padding: 0.5rem;
+            border-radius: 50%;
+            width: 40px;
+            height: 40px;
+            cursor: pointer;
+            transition: all 0.3s ease;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+        }
+
+        .theme-toggle:hover {
+            border-color: var(--primary-color);
+            color: var(--primary-color);
+        }
+
+        .navbar-nav .nav-link {
+            color: var(--text-secondary);
+            font-weight: 500;
+            margin: 0 1rem;
+            transition: color 0.3s;
+        }
+
+        .navbar-nav .nav-link:hover {
+            color: var(--primary-color);
+        }
+
+        .custom-container {
+            max-width: 1200px;
+            margin: 0 auto;
+            padding: 2rem;
+        }
+
+        .hero-section {
+            background: linear-gradient(135deg, var(--primary-color) 0%, var(--accent-color) 100%);
+            color: white;
+            padding: 4rem 0;
+            margin-bottom: 3rem;
+            border-radius: 15px;
+            text-align: center;
+        }
+
+        .research-overview {
+            background: var(--bg-card);
+            border-radius: 15px;
+            padding: 2.5rem;
+            margin-bottom: 3rem;
+            box-shadow: 0 8px 25px rgba(0,0,0,0.3);
+            border: 1px solid var(--border-light);
+        }
+
+        .research-card {
+            background: var(--bg-card);
+            border-radius: 15px;
+            padding: 2.5rem;
+            margin-bottom: 2rem;
+            box-shadow: 0 8px 25px rgba(0,0,0,0.3);
+            border: 1px solid var(--border-light);
+            transition: all 0.3s ease;
+        }
+
+        .research-card:hover {
+            transform: translateY(-5px);
+            box-shadow: 0 15px 35px rgba(0,0,0,0.4);
+            border-color: var(--border-lighter);
+        }
+
+        .research-icon {
+            width: 80px;
+            height: 80px;
+            background: linear-gradient(135deg, var(--primary-color) 0%, var(--accent-color) 100%);
+            border-radius: 15px;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            color: white;
+            font-size: 2rem;
+            margin-bottom: 1.5rem;
+        }
+
+        .research-title {
+            color: var(--primary-color);
+            font-weight: 700;
+            margin-bottom: 1rem;
+            font-size: 1.5rem;
+        }
+
+        .research-subtitle {
+            color: var(--text-secondary);
+            font-size: 1.1rem;
+            margin-bottom: 1.5rem;
+            font-weight: 500;
+        }
+
+        .methodology-list {
+            background: var(--bg-secondary);
+            border-radius: 10px;
+            padding: 1.5rem;
+            margin-top: 1.5rem;
+            border: 1px solid var(--border-light);
+        }
+
+        .methodology-list h6 {
+            color: var(--primary-color);
+            font-weight: 600;
+            margin-bottom: 1rem;
+        }
+
+        .method-tag {
+            display: inline-block;
+            background: var(--primary-color);
+            color: white;
+            padding: 0.4rem 0.8rem;
+            border-radius: 20px;
+            font-size: 0.85rem;
+            margin: 0.2rem;
+            font-weight: 500;
+        }
+
+        .framework-highlight {
+            background: var(--bg-secondary);
+            border-left: 4px solid var(--primary-color);
+            padding: 1.5rem;
+            border-radius: 0 10px 10px 0;
+            margin: 1.5rem 0;
+            border: 1px solid var(--border-light);
+            border-left: 4px solid var(--primary-color);
+        }
+
+        .framework-name {
+            color: var(--primary-color);
+            font-weight: 700;
+            font-size: 1.2rem;
+            margin-bottom: 0.5rem;
+        }
+
+        .collaboration-section {
+            background: linear-gradient(135deg, var(--bg-light) 0%, #e9ecef 100%);
+            border-radius: 15px;
+            padding: 2rem;
+            margin: 2rem 0;
+        }
+
+        .collaboration-item {
+            background: white;
+            border-radius: 10px;
+            padding: 1.5rem;
+            margin-bottom: 1rem;
+            border-left: 4px solid var(--primary-color);
+        }
+
+        .impact-metrics {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(200px, 1fr));
+            gap: 1.5rem;
+            margin: 2rem 0;
+        }
+
+        .metric-card {
+            background: white;
+            border-radius: 10px;
+            padding: 1.5rem;
+            text-align: center;
+            box-shadow: 0 4px 12px rgba(0,0,0,0.08);
+        }
+
+        .metric-number {
+            font-size: 2.5rem;
+            font-weight: 700;
+            color: var(--primary-color);
+            display: block;
+        }
+
+        .metric-label {
+            color: var(--text-secondary);
+            font-weight: 500;
+            margin-top: 0.5rem;
+        }
+
+        .timeline-research {
+            position: relative;
+            padding-left: 2rem;
+            margin: 2rem 0;
+        }
+
+        .timeline-research:before {
+            content: '';
+            position: absolute;
+            left: 0;
+            top: 0;
+            height: 100%;
+            width: 3px;
+            background: linear-gradient(to bottom, var(--primary-color), var(--accent-color));
+        }
+
+        .timeline-item {
+            position: relative;
+            margin-bottom: 2rem;
+            background: white;
+            border-radius: 10px;
+            padding: 1.5rem;
+            box-shadow: 0 4px 12px rgba(0,0,0,0.08);
+        }
+
+        .timeline-item:before {
+            content: '';
+            position: absolute;
+            left: -2.75rem;
+            top: 1.5rem;
+            width: 12px;
+            height: 12px;
+            background: var(--primary-color);
+            border-radius: 50%;
+            border: 3px solid white;
+        }
+
+        /* Responsive */
+        @media (max-width: 768px) {
+            .navbar-nav {
+                text-align: center;
+            }
+
+            .navbar-nav .nav-link {
+                margin: 0.5rem 0;
+            }
+
+            .hero-section {
+                padding: 3rem 0;
+            }
+
+            .research-card {
+                padding: 1.5rem;
+            }
+
+            .impact-metrics {
+                grid-template-columns: repeat(2, 1fr);
+                gap: 1rem;
+            }
+        }
+    </style>
+</head>
+<body>
+    <!-- Navbar -->
+    <nav class="navbar navbar-expand-lg custom-navbar sticky-top">
+        <div class="container">
+            <a class="navbar-brand fw-bold" href="index.html">Seokhyun Choung</a>
+            <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarNav">
+                <span class="navbar-toggler-icon"></span>
+            </button>
+            <div class="collapse navbar-collapse" id="navbarNav">
+                <ul class="navbar-nav ms-auto">
+                    <li class="nav-item">
+                        <a class="nav-link" href="about.html">About</a>
+                    </li>
+                    <li class="nav-item">
+                        <a class="nav-link active" href="research.html" style="background: var(--accent); color: #fff; border-radius: 5px;">Research</a>
+                    </li>
+                    <li class="nav-item">
+                        <a class="nav-link" href="publications.html">Publications</a>
+                    </li>
+                    <li class="nav-item">
+                        <a class="nav-link" href="cv.html">CV</a>
+                    </li>
+                    <li class="nav-item">
+                        <a class="nav-link" href="teaching.html">Teaching</a>
+                    </li>
+                    <li class="nav-item">
+                        <button class="theme-toggle ms-3" onclick="toggleTheme()" id="theme-toggle">
+                            <i class="fas fa-moon"></i>
+                        </button>
+                    </li>
+                </ul>
+            </div>
+        </div>
+    </nav>
+
+    <main class="container custom-container">
+        <!-- Hero Section -->
+        <section class="hero-section">
+            <div class="container">
+                <h1 class="display-4 fw-bold mb-3">Research Portfolio</h1>
+                <p class="lead mb-4">Atomistic Intelligence for Sustainable Chemical Engineering</p>
+                <p class="h5 mb-0">Developing next-generation catalysts through computational design and machine learning</p>
+            </div>
+        </section>
+
+        <!-- Research Overview -->
+        <section class="research-overview">
+            <h2 class="text-center mb-4" style="color: var(--primary-color);">Research Mission</h2>
+            <p class="lead text-center mb-4">
+                My research leverages machine learning, multiscale simulations, and ab-initio calculations to discover efficient catalytic materials for clean fuel production and sustainable chemical processes. I focus on bridging the gap between theoretical predictions and experimental observations through data-driven methods.
+            </p>
+        </section>
+
+        <!-- Core Research Areas -->
+        <section class="mb-5">
+            <h2 class="text-center mb-5" style="color: var(--primary-color);">Core Research Areas</h2>
+
+            <!-- Active Learning Research -->
+            <div class="research-card">
+                <div class="row align-items-start">
+                    <div class="col-lg-2 col-md-3 text-center">
+                        <div class="research-icon mx-auto">
+                            <i class="fas fa-brain"></i>
+                        </div>
+                    </div>
+                    <div class="col-lg-10 col-md-9">
+                        <h3 class="research-title">Catalyst Discovery</h3>
+                        <p class="research-subtitle" style="color: var(--text-primary); font-style: italic;">"It doesn't matter how beautiful your theory is, it doesn't matter how smart you are. If it doesn't agree with experiment, it's wrong." - Richard Feynman</p>
+                        
+                        <p style="color: var(--text-primary);"><span style="color: var(--primary-color);">Active learning</span> accelerates materials screening through intelligent sampling. <small style="color: #0f0f70;">[Nature Comm. 2023, ACS Catal. 2024]</small></p>
+                        
+                        <div class="framework-highlight">
+                            <div class="framework-name">CEAL Framework</div>
+                            <p class="mb-0">Catalyst Embedding Active Learning - A groundbreaking framework that replaces brute-force screening with targeted sampling guided by pretrained GNN models. Uses latent space similarity and predictive uncertainty to enable efficient identification of promising candidates across complex chemical spaces.</p>
+                        </div>
+
+                        <div class="methodology-list">
+                            <h6><i class="fas fa-tools me-2"></i>Key Methodologies</h6>
+                            <span class="method-tag">Graph Neural Networks</span>
+                            <span class="method-tag">Active Learning</span>
+                            <span class="method-tag">Uncertainty Quantification</span>
+                            <span class="method-tag">Latent Space Analysis</span>
+                            <span class="method-tag">Chemical Space Mapping</span>
+                        </div>
+                    </div>
+                </div>
+            </div>
+
+            <!-- GNN Distillation Research -->
+            <div class="research-card">
+                <div class="row align-items-start">
+                    <div class="col-lg-2 col-md-3 text-center">
+                        <div class="research-icon mx-auto">
+                            <i class="fas fa-compress-arrows-alt"></i>
+                        </div>
+                    </div>
+                    <div class="col-lg-10 col-md-9">
+                        <h3 class="research-title">Multiscale Simulation</h3>
+                        <p class="research-subtitle" style="color: var(--text-primary);">Bridging atomic and macroscopic scales</p>
+                        
+                        <p style="color: var(--text-primary);"><span style="color: #0f0f70;">Graph neural networks</span> enable atomic to nanoscale modeling. <small style="color: var(--primary-color);">[Chem. Eng. J. 2024]</small></p>
+                        
+                        <div class="framework-highlight">
+                            <div class="framework-name">CRACK Framework</div>
+                            <p class="mb-0">Contrastive Relational-Aware Compression of Knowledge - A novel distillation framework using contrastive learning that compresses large GNN potentials into lightweight surrogates, achieving over 50× speedup in energy and force prediction while maintaining accuracy.</p>
+                        </div>
+
+                        <div class="methodology-list">
+                            <h6><i class="fas fa-tools me-2"></i>Key Methodologies</h6>
+                            <span class="method-tag">Knowledge Distillation</span>
+                            <span class="method-tag">Contrastive Learning</span>
+                            <span class="method-tag">Graph Compression</span>
+                            <span class="method-tag">Transfer Learning</span>
+                            <span class="method-tag">Model Optimization</span>
+                        </div>
+                    </div>
+                </div>
+            </div>
+
+            <!-- Multiscale Modeling Research -->
+            <div class="research-card">
+                <div class="row align-items-start">
+                    <div class="col-lg-2 col-md-3 text-center">
+                        <div class="research-icon mx-auto">
+                            <i class="fas fa-layer-group"></i>
+                        </div>
+                    </div>
+                    <div class="col-lg-10 col-md-9">
+                        <h3 class="research-title">Experimental Realization</h3>
+                        <p class="research-subtitle" style="color: var(--text-primary);">Validating computational predictions</p>
+                        
+                        <p style="color: var(--text-primary);">Theory-guided <span style="color: var(--primary-color);">synthesis</span> validates computational predictions. <small style="color: #0f0f70;">[Angew. Chem. 2025, Adv. Energy Mater. 2022]</small></p>
+                        
+                        <div class="row mt-3">
+                            <div class="col-md-6">
+                                <h6 class="text-primary">System Types Studied</h6>
+                                <ul class="list-unstyled">
+                                    <li><i class="fas fa-check-circle text-success me-2"></i>Metal-hydroxide heterostructures</li>
+                                    <li><i class="fas fa-check-circle text-success me-2"></i>Nanostructured ceria systems</li>
+                                    <li><i class="fas fa-check-circle text-success me-2"></i>Single atom Pt on ceria</li>
+                                    <li><i class="fas fa-check-circle text-success me-2"></i>Ni exsolution structures</li>
+                                </ul>
+                            </div>
+                            <div class="col-md-6">
+                                <h6 class="text-primary">Applications</h6>
+                                <ul class="list-unstyled">
+                                    <li><i class="fas fa-arrow-right text-primary me-2"></i>CO₂ hydrogenation</li>
+                                    <li><i class="fas fa-arrow-right text-primary me-2"></i>Oxygen reduction reactions</li>
+                                    <li><i class="fas fa-arrow-right text-primary me-2"></i>Methane oxidation</li>
+                                    <li><i class="fas fa-arrow-right text-primary me-2"></i>Hydrogen evolution</li>
+                                </ul>
+                            </div>
+                        </div>
+
+                        <div class="methodology-list">
+                            <h6><i class="fas fa-tools me-2"></i>Key Methodologies</h6>
+                            <span class="method-tag">Multiscale Modeling</span>
+                            <span class="method-tag">Molecular Dynamics</span>
+                            <span class="method-tag">DFT Calculations</span>
+                            <span class="method-tag">Kinetic Monte Carlo</span>
+                            <span class="method-tag">Machine Learning Potentials</span>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </section>
+
+
+
+    </main>
+
+    <!-- Footer -->
+    <footer class="text-center py-4 mt-5" style="background-color: var(--bg-secondary);">
+        <p class="mb-0">&copy; 2025 Seokhyun Choung</p>
+    </footer>
+
+    <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/js/bootstrap.bundle.min.js"></script>
+    <script>
+        // Theme toggle function
+        function toggleTheme() {
+            const html = document.documentElement;
+            const themeToggle = document.getElementById('theme-toggle');
+            const icon = themeToggle.querySelector('i');
+            
+            if (html.getAttribute('data-theme') === 'dark') {
+                html.removeAttribute('data-theme');
+                icon.className = 'fas fa-moon';
+                localStorage.setItem('theme', 'light');
+            } else {
+                html.setAttribute('data-theme', 'dark');
+                icon.className = 'fas fa-sun';
+                localStorage.setItem('theme', 'dark');
+            }
+        }
+
+        // Load saved theme
+        document.addEventListener('DOMContentLoaded', function() {
+            const savedTheme = localStorage.getItem('theme');
+            const themeToggle = document.getElementById('theme-toggle');
+            const icon = themeToggle.querySelector('i');
+            
+            if (savedTheme === 'dark') {
+                document.documentElement.setAttribute('data-theme', 'dark');
+                icon.className = 'fas fa-sun';
+            }
+        });
+    </script>
+</body>
+</html>

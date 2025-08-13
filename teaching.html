@@ -1,0 +1,719 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <title>Teaching - Seokhyun Choung</title>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta name="description" content="Teaching Experience and Philosophy of Seokhyun Choung - Computational Catalysis Educator">
+    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/css/bootstrap.min.css" rel="stylesheet">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0-beta3/css/all.min.css">
+    <style>
+        :root {
+            --text: #000;
+            --bg: #fff;
+            --brand: #0F0F70;
+            --accent: #ff6600;
+            --primary-color: #f78f1e;
+            --accent-color: #f9a54b;
+            --text-primary: #000000;
+            --text-secondary: #000000;
+            --text-muted: #000000;
+            --bg-primary: #ffffff;
+            --bg-secondary: #f5f5f5;
+            --bg-card: #fafafa;
+            --border-light: #e0e0e0;
+            --border-lighter: #cccccc;
+        }
+
+        [data-theme="dark"] {
+            --text: #fff;
+            --bg: #0b0b0b;
+            --brand: #0F0F70;
+            --accent: #ff6600;
+            --text-primary: #ffffff;
+            --text-secondary: #ffffff;
+            --text-muted: #ffffff;
+            --bg-primary: #1a1a1a;
+            --bg-secondary: #2a2a2a;
+            --bg-card: #212121;
+            --border-light: #3c3c3c;
+            --border-lighter: #505050;
+        }
+
+        body {
+            color: var(--text);
+            background: var(--bg);
+        }
+
+        .nav-link.active {
+            background: var(--accent) !important;
+            color: #fff !important;
+            border-radius: 5px;
+        }
+
+        .nav-link.active:hover, .nav-link.active:focus {
+            background: var(--accent) !important;
+            color: #fff !important;
+        }
+
+        body {
+            font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, sans-serif;
+            color: var(--text-primary);
+            line-height: 1.6;
+            background-color: var(--bg-primary);
+        }
+
+        /* Custom navbar */
+        .custom-navbar {
+            background-color: var(--bg-primary) !important;
+            box-shadow: 0 1px 3px rgba(0,0,0,0.1);
+            padding: 1rem 0;
+            border-bottom: 1px solid var(--border-light);
+        }
+
+        [data-theme="dark"] .custom-navbar {
+            box-shadow: 0 1px 3px rgba(0,0,0,0.3);
+        }
+
+        .navbar-brand {
+            color: var(--text-primary) !important;
+        }
+
+        .theme-toggle {
+            background: none;
+            border: 2px solid var(--text-secondary);
+            color: var(--text-secondary);
+            padding: 0.5rem;
+            border-radius: 50%;
+            width: 40px;
+            height: 40px;
+            cursor: pointer;
+            transition: all 0.3s ease;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+        }
+
+        .theme-toggle:hover {
+            border-color: var(--primary-color);
+            color: var(--primary-color);
+        }
+
+        .navbar-nav .nav-link {
+            color: var(--text-secondary);
+            font-weight: 500;
+            margin: 0 1rem;
+            transition: color 0.3s;
+        }
+
+        .navbar-nav .nav-link:hover {
+            color: var(--primary-color);
+        }
+
+        .custom-container {
+            max-width: 1000px;
+            margin: 0 auto;
+            padding: 2rem;
+        }
+
+        .teaching-header {
+            background: linear-gradient(135deg, var(--primary-color) 0%, var(--accent-color) 100%);
+            color: white;
+            padding: 4rem 0;
+            margin-bottom: 3rem;
+            border-radius: 15px;
+            text-align: center;
+        }
+
+        .teaching-card {
+            background: var(--bg-card);
+            border-radius: 15px;
+            padding: 2.5rem;
+            margin-bottom: 2rem;
+            box-shadow: 0 8px 25px rgba(0,0,0,0.3);
+            border: 1px solid var(--border-light);
+            transition: all 0.3s ease;
+        }
+
+        .teaching-card:hover {
+            transform: translateY(-5px);
+            box-shadow: 0 15px 35px rgba(0,0,0,0.4);
+            border-color: var(--border-lighter);
+        }
+
+        .section-title {
+            color: var(--primary-color);
+            font-weight: 700;
+            margin-bottom: 1.5rem;
+            display: flex;
+            align-items: center;
+            gap: 0.5rem;
+        }
+
+        .teaching-experience {
+            background: var(--bg-secondary);
+            border-radius: 12px;
+            padding: 2rem;
+            margin-bottom: 1.5rem;
+            border-left: 4px solid var(--primary-color);
+            border: 1px solid var(--border-light);
+        }
+
+        .course-title {
+            font-weight: 600;
+            color: var(--text-primary);
+            font-size: 1.2rem;
+            margin-bottom: 0.5rem;
+        }
+
+        .course-details {
+            color: var(--text-secondary);
+            margin-bottom: 1rem;
+        }
+
+        .course-institution {
+            color: var(--primary-color);
+            font-weight: 500;
+        }
+
+        .philosophy-section {
+            background: var(--bg-secondary);
+            border-radius: 15px;
+            padding: 2.5rem;
+            margin: 2rem 0;
+            border: 1px solid var(--border-light);
+        }
+
+        .philosophy-item {
+            background: var(--bg-card);
+            border-radius: 10px;
+            padding: 1.5rem;
+            margin-bottom: 1.5rem;
+            box-shadow: 0 4px 12px rgba(0,0,0,0.3);
+            border: 1px solid var(--border-light);
+        }
+
+        .philosophy-item:last-child {
+            margin-bottom: 0;
+        }
+
+        .philosophy-icon {
+            color: var(--primary-color);
+            font-size: 2rem;
+            margin-bottom: 1rem;
+        }
+
+        .topic-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(280px, 1fr));
+            gap: 1.5rem;
+            margin: 2rem 0;
+        }
+
+        .topic-card {
+            background: white;
+            border-radius: 12px;
+            padding: 2rem;
+            box-shadow: 0 4px 15px rgba(0,0,0,0.08);
+            border: 1px solid var(--border-light);
+            transition: all 0.3s ease;
+        }
+
+        .topic-card:hover {
+            transform: translateY(-3px);
+            box-shadow: 0 8px 25px rgba(0,0,0,0.12);
+        }
+
+        .topic-icon {
+            width: 60px;
+            height: 60px;
+            background: linear-gradient(135deg, var(--primary-color) 0%, var(--accent-color) 100%);
+            border-radius: 12px;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            color: white;
+            font-size: 1.5rem;
+            margin-bottom: 1rem;
+        }
+
+        .topic-title {
+            color: var(--primary-color);
+            font-weight: 600;
+            margin-bottom: 1rem;
+        }
+
+        .skill-tag {
+            display: inline-block;
+            background: var(--primary-color);
+            color: white;
+            padding: 0.3rem 0.8rem;
+            border-radius: 15px;
+            font-size: 0.85rem;
+            margin: 0.2rem;
+            font-weight: 500;
+        }
+
+        .resources-section {
+            background: var(--bg-light);
+            border-radius: 15px;
+            padding: 2rem;
+            margin: 2rem 0;
+        }
+
+        .resource-item {
+            background: white;
+            border-radius: 8px;
+            padding: 1.5rem;
+            margin-bottom: 1rem;
+            border-left: 4px solid var(--primary-color);
+            transition: all 0.3s ease;
+        }
+
+        .resource-item:hover {
+            transform: translateX(5px);
+            box-shadow: 0 4px 12px rgba(0,0,0,0.1);
+        }
+
+        .resource-title {
+            font-weight: 600;
+            color: var(--text-primary);
+            margin-bottom: 0.5rem;
+        }
+
+        .github-link {
+            background: #24292e;
+            color: white;
+            padding: 0.75rem 1.5rem;
+            border-radius: 8px;
+            text-decoration: none;
+            display: inline-flex;
+            align-items: center;
+            gap: 0.5rem;
+            font-weight: 500;
+            transition: all 0.3s ease;
+        }
+
+        .github-link:hover {
+            background: #1a1e22;
+            color: white;
+            transform: translateY(-2px);
+            box-shadow: 0 6px 20px rgba(36, 41, 46, 0.3);
+        }
+
+        .testimonial-section {
+            background: linear-gradient(135deg, var(--bg-light) 0%, #e9ecef 100%);
+            border-radius: 15px;
+            padding: 2.5rem;
+            margin: 2rem 0;
+            text-align: center;
+        }
+
+        .testimonial-quote {
+            font-style: italic;
+            font-size: 1.2rem;
+            color: var(--text-secondary);
+            margin-bottom: 1rem;
+            position: relative;
+        }
+
+        .testimonial-quote:before {
+            content: '"';
+            font-size: 3rem;
+            color: var(--primary-color);
+            position: absolute;
+            left: -2rem;
+            top: -1rem;
+        }
+
+        .testimonial-author {
+            font-weight: 600;
+            color: var(--primary-color);
+        }
+
+        /* Responsive */
+        @media (max-width: 768px) {
+            .navbar-nav {
+                text-align: center;
+            }
+
+            .navbar-nav .nav-link {
+                margin: 0.5rem 0;
+            }
+
+            .teaching-header {
+                padding: 3rem 0;
+            }
+
+            .topic-grid {
+                grid-template-columns: 1fr;
+                gap: 1rem;
+            }
+
+            .philosophy-section,
+            .teaching-card {
+                padding: 1.5rem;
+            }
+        }
+    </style>
+</head>
+<body>
+    <!-- Navbar -->
+    <nav class="navbar navbar-expand-lg custom-navbar sticky-top">
+        <div class="container">
+            <a class="navbar-brand fw-bold" href="index.html">Seokhyun Choung</a>
+            <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarNav">
+                <span class="navbar-toggler-icon"></span>
+            </button>
+            <div class="collapse navbar-collapse" id="navbarNav">
+                <ul class="navbar-nav ms-auto">
+                    <li class="nav-item">
+                        <a class="nav-link" href="about.html">About</a>
+                    </li>
+                    <li class="nav-item">
+                        <a class="nav-link" href="research.html">Research</a>
+                    </li>
+                    <li class="nav-item">
+                        <a class="nav-link" href="publications.html">Publications</a>
+                    </li>
+                    <li class="nav-item">
+                        <a class="nav-link" href="cv.html">CV</a>
+                    </li>
+                    <li class="nav-item">
+                        <a class="nav-link active" href="teaching.html" style="background: var(--accent); color: #fff; border-radius: 5px;">Teaching</a>
+                    </li>
+                    <li class="nav-item">
+                        <button class="theme-toggle ms-3" onclick="toggleTheme()" id="theme-toggle">
+                            <i class="fas fa-moon"></i>
+                        </button>
+                    </li>
+                </ul>
+            </div>
+        </div>
+    </nav>
+
+    <main class="container custom-container">
+        <!-- Header -->
+        <section class="teaching-header">
+            <div class="container">
+                <h1 class="display-4 fw-bold mb-3">Teaching & Education</h1>
+                <p class="lead mb-4">Bridging Theory and Practice in Computational Sciences</p>
+                <p class="h5 mb-0">Empowering the next generation of computational scientists and engineers</p>
+            </div>
+        </section>
+
+        <!-- Teaching Philosophy -->
+        <section class="philosophy-section">
+            <h2 class="section-title text-center mb-4">
+                <i class="fas fa-lightbulb"></i>
+                Teaching Philosophy
+            </h2>
+            
+            <div class="row">
+                <div class="col-md-4">
+                    <div class="philosophy-item text-center">
+                        <i class="fas fa-hands-helping philosophy-icon"></i>
+                        <h4 class="text-primary">Hands-On Learning</h4>
+                        <p style="color: var(--text-primary);">Learning by doing with <span style="color: var(--primary-color);">real computational problems</span>.</p>
+                    </div>
+                </div>
+                <div class="col-md-4">
+                    <div class="philosophy-item text-center">
+                        <i class="fas fa-bridge philosophy-icon"></i>
+                        <h4 class="text-primary">Theory-Practice Bridge</h4>
+                        <p style="color: var(--text-primary);">Connecting <span style="color: #0f0f70;">theory with practice</span> for deeper understanding.</p>
+                    </div>
+                </div>
+                <div class="col-md-4">
+                    <div class="philosophy-item text-center">
+                        <i class="fas fa-users philosophy-icon"></i>
+                        <h4 class="text-primary">Collaborative Environment</h4>
+                        <p style="color: var(--text-primary);">Fostering <span style="color: var(--primary-color);">collaborative learning</span> and peer support.</p>
+                    </div>
+                </div>
+            </div>
+        </section>
+
+        <!-- Teaching Experience -->
+        <section class="teaching-card">
+            <h2 class="section-title">
+                <i class="fas fa-chalkboard-teacher"></i>
+                Teaching Assistant Experience
+            </h2>
+            
+            <div class="teaching-experience">
+                <div class="course-title">Computational Materials and Data Science</div>
+                <div class="course-details">
+                    <span class="course-institution">Seoul National University</span> • Fall 2024 • Graduate Level
+                </div>
+                <p style="color: var(--text-primary);">ML applications in materials science: <span style="color: var(--primary-color);">GNNs</span>, active learning, PyTorch implementations.</p>
+                <div class="mt-3">
+                    <span class="skill-tag">Machine Learning</span>
+                    <span class="skill-tag">Materials Informatics</span>
+                    <span class="skill-tag">PyTorch</span>
+                    <span class="skill-tag">Graph Neural Networks</span>
+                </div>
+            </div>
+            
+            <div class="teaching-experience">
+                <div class="course-title">Physical Chemistry Laboratory</div>
+                <div class="course-details">
+                    <span class="course-institution">POSTECH</span> • Fall 2023 • Undergraduate Level
+                </div>
+                <p style="color: var(--text-primary);">Lab supervision: <span style="color: #0f0f70;">kinetics</span>, thermodynamics, spectroscopy.</p>
+                <div class="mt-3">
+                    <span class="skill-tag">Experimental Design</span>
+                    <span class="skill-tag">Data Analysis</span>
+                    <span class="skill-tag">Kinetics</span>
+                    <span class="skill-tag">Thermodynamics</span>
+                </div>
+            </div>
+            
+            <div class="teaching-experience">
+                <div class="course-title">Molecular Simulation</div>
+                <div class="course-details">
+                    <span class="course-institution">POSTECH</span> • Fall 2021 • Graduate Level
+                </div>
+                <p style="color: var(--text-primary);">Computational methods: <span style="color: var(--primary-color);">MD</span>, Monte Carlo, <span style="color: #0f0f70;">DFT</span> calculations.</p>
+                <div class="mt-3">
+                    <span class="skill-tag">Molecular Dynamics</span>
+                    <span class="skill-tag">Monte Carlo</span>
+                    <span class="skill-tag">DFT</span>
+                    <span class="skill-tag">VASP</span>
+                </div>
+            </div>
+        </section>
+
+        <!-- Teachable Subjects -->
+        <section class="teaching-card">
+            <h2 class="section-title">
+                <i class="fas fa-book-open"></i>
+                Teachable Topics & Expertise
+            </h2>
+            
+            <div class="topic-grid">
+                <div class="topic-card">
+                    <div class="topic-icon">
+                        <i class="fas fa-atom"></i>
+                    </div>
+                    <h4 class="topic-title">Computational Chemistry</h4>
+                    <p style="color: var(--text-primary);"><span style="color: var(--primary-color);">DFT</span>, electronic structure, catalysis applications.</p>
+                    <div class="mt-2">
+                        <span class="skill-tag">DFT</span>
+                        <span class="skill-tag">VASP</span>
+                        <span class="skill-tag">ASE</span>
+                    </div>
+                </div>
+                
+                <div class="topic-card">
+                    <div class="topic-icon">
+                        <i class="fas fa-robot"></i>
+                    </div>
+                    <h4 class="topic-title">Machine Learning for Scientists</h4>
+                    <p style="color: var(--text-primary);">Neural networks, <span style="color: #0f0f70;">GNNs</span>, chemistry applications.</p>
+                    <div class="mt-2">
+                        <span class="skill-tag">PyTorch</span>
+                        <span class="skill-tag">GNNs</span>
+                        <span class="skill-tag">Active Learning</span>
+                    </div>
+                </div>
+                
+                <div class="topic-card">
+                    <div class="topic-icon">
+                        <i class="fas fa-fire"></i>
+                    </div>
+                    <h4 class="topic-title">Thermodynamics & Kinetics</h4>
+                    <p style="color: var(--text-primary);">Chemical <span style="color: var(--primary-color);">kinetics</span>, statistical mechanics.</p>
+                    <div class="mt-2">
+                        <span class="skill-tag">Reaction Engineering</span>
+                        <span class="skill-tag">Kinetic Modeling</span>
+                        <span class="skill-tag">Statistical Mechanics</span>
+                    </div>
+                </div>
+                
+                <div class="topic-card">
+                    <div class="topic-icon">
+                        <i class="fas fa-flask"></i>
+                    </div>
+                    <h4 class="topic-title">Catalysis Fundamentals</h4>
+                    <p style="color: var(--text-primary);"><span style="color: #0f0f70;">Surface science</span>, catalyst design.</p>
+                    <div class="mt-2">
+                        <span class="skill-tag">Surface Science</span>
+                        <span class="skill-tag">Reaction Mechanisms</span>
+                        <span class="skill-tag">Catalyst Design</span>
+                    </div>
+                </div>
+                
+                <div class="topic-card">
+                    <div class="topic-icon">
+                        <i class="fas fa-code"></i>
+                    </div>
+                    <h4 class="topic-title">Scientific Programming</h4>
+                    <p style="color: var(--text-primary);">Python, <span style="color: var(--primary-color);">data analysis</span>, research workflows.</p>
+                    <div class="mt-2">
+                        <span class="skill-tag">Python</span>
+                        <span class="skill-tag">NumPy</span>
+                        <span class="skill-tag">Matplotlib</span>
+                    </div>
+                </div>
+                
+                <div class="topic-card">
+                    <div class="topic-icon">
+                        <i class="fas fa-chart-line"></i>
+                    </div>
+                    <h4 class="topic-title">Materials Informatics</h4>
+                    <p>Data-driven materials discovery, high-throughput screening, materials databases, and computational materials design.</p>
+                    <div class="mt-2">
+                        <span class="skill-tag">Materials Discovery</span>
+                        <span class="skill-tag">High-throughput</span>
+                        <span class="skill-tag">Data Mining</span>
+                    </div>
+                </div>
+            </div>
+        </section>
+
+
+        <!-- Teaching Approach -->
+        <section class="teaching-card">
+            <h2 class="section-title">
+                <i class="fas fa-graduation-cap"></i>
+                My Teaching Approach
+            </h2>
+            
+            <div class="row">
+                <div class="col-md-6">
+                    <h4 class="text-primary mb-3">Interactive Learning</h4>
+                    <ul>
+                        <li>Combine lectures with hands-on coding sessions</li>
+                        <li>Use real research problems as learning examples</li>
+                        <li>Encourage questions and collaborative problem-solving</li>
+                        <li>Provide immediate feedback on computational results</li>
+                    </ul>
+                </div>
+                <div class="col-md-6">
+                    <h4 class="text-primary mb-3">Practical Skills Development</h4>
+                    <ul>
+                        <li>Focus on transferable computational skills</li>
+                        <li>Emphasize code readability and documentation</li>
+                        <li>Teach debugging and troubleshooting techniques</li>
+                        <li>Connect theory to real-world applications</li>
+                    </ul>
+                </div>
+            </div>
+            
+            <div class="row mt-4">
+                <div class="col-md-6">
+                    <h4 class="text-primary mb-3">Student-Centered Learning</h4>
+                    <ul>
+                        <li>Adapt teaching methods to different learning styles</li>
+                        <li>Provide multiple paths to understanding concepts</li>
+                        <li>Offer additional support for struggling students</li>
+                        <li>Encourage independent exploration and creativity</li>
+                    </ul>
+                </div>
+                <div class="col-md-6">
+                    <h4 class="text-primary mb-3">Industry Relevance</h4>
+                    <ul>
+                        <li>Include current industry trends and challenges</li>
+                        <li>Discuss career paths in computational sciences</li>
+                        <li>Invite guest speakers from academia and industry</li>
+                        <li>Emphasize skills valued by employers</li>
+                    </ul>
+                </div>
+            </div>
+            
+            <!-- Educational Resources & Materials -->
+            <div class="mt-5">
+                <h3 class="section-title mb-4">
+                    <i class="fas fa-tools"></i>
+                    Educational Resources & Materials
+                </h3>
+                
+                <div class="row">
+                    <div class="col-md-6">
+                        <div class="resource-item" style="color: var(--text);">
+                            <div class="resource-title" style="color: var(--text);">Computational Modeling Tutorials</div>
+                            <p style="color: var(--text);">Step-by-step guides for setting up and running DFT calculations, molecular dynamics simulations, and machine learning models for materials science applications.</p>
+                        </div>
+                    </div>
+                    <div class="col-md-6">
+                        <div class="resource-item" style="color: var(--text);">
+                            <div class="resource-title" style="color: var(--text);">Python Scripts for Scientists</div>
+                            <p style="color: var(--text);">Collection of well-documented Python scripts for data analysis, visualization, and computational workflows commonly used in chemistry and materials research.</p>
+                        </div>
+                    </div>
+                </div>
+                
+                <div class="row">
+                    <div class="col-md-6">
+                        <div class="resource-item" style="color: var(--text);">
+                            <div class="resource-title" style="color: var(--text);">Machine Learning Examples</div>
+                            <p style="color: var(--text);">Practical examples of applying machine learning techniques to chemical and materials problems, including complete code implementations and explanations.</p>
+                        </div>
+                    </div>
+                    <div class="col-md-6">
+                        <div class="resource-item" style="color: var(--text);">
+                            <div class="resource-title" style="color: var(--text);">Research Best Practices</div>
+                            <p style="color: var(--text);">Guidelines for reproducible computational research, including code organization, documentation standards, and version control for scientific projects.</p>
+                        </div>
+                    </div>
+                </div>
+                
+                <div class="text-center mt-4">
+                    <a href="https://github.com/s-choung/Simulation_tutorials" target="_blank" class="github-link">
+                        <i class="fab fa-github"></i>
+                        View Course Materials on GitHub
+                    </a>
+                </div>
+            </div>
+        </section>
+
+
+        <!-- Student Testimonial Placeholder -->
+        <section class="testimonial-section">
+            <h3 class="text-primary mb-4">Commitment to Student Success</h3>
+            <div class="testimonial-quote">
+                My goal is to inspire students to see computational science not just as a tool, but as a powerful way to understand and solve real-world problems. I strive to create an environment where curiosity thrives and students develop both technical skills and scientific intuition.
+            </div>
+            <div class="testimonial-author">- Teaching Philosophy</div>
+        </section>
+    </main>
+
+    <!-- Footer -->
+    <footer class="text-center py-4 mt-5" style="background-color: var(--bg-secondary);">
+        <p class="mb-0">&copy; 2025 Seokhyun Choung</p>
+    </footer>
+
+    <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/js/bootstrap.bundle.min.js"></script>
+    <script>
+        // Theme toggle function
+        function toggleTheme() {
+            const html = document.documentElement;
+            const themeToggle = document.getElementById('theme-toggle');
+            const icon = themeToggle.querySelector('i');
+            
+            if (html.getAttribute('data-theme') === 'dark') {
+                html.removeAttribute('data-theme');
+                icon.className = 'fas fa-moon';
+                localStorage.setItem('theme', 'light');
+            } else {
+                html.setAttribute('data-theme', 'dark');
+                icon.className = 'fas fa-sun';
+                localStorage.setItem('theme', 'dark');
+            }
+        }
+
+        // Load saved theme
+        document.addEventListener('DOMContentLoaded', function() {
+            const savedTheme = localStorage.getItem('theme');
+            const themeToggle = document.getElementById('theme-toggle');
+            const icon = themeToggle.querySelector('i');
+            
+            if (savedTheme === 'dark') {
+                document.documentElement.setAttribute('data-theme', 'dark');
+                icon.className = 'fas fa-sun';
+            }
+        });
+    </script>
+</body>
+</html>

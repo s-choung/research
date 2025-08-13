@@ -1,0 +1,693 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <title>Publications - Seokhyun Choung</title>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta name="description" content="Complete list of publications by Seokhyun Choung - Research Scientist in Computational Catalysis and Machine Learning">
+    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/css/bootstrap.min.css" rel="stylesheet">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0-beta3/css/all.min.css">
+    <style>
+        :root {
+            --text: #000;
+            --bg: #fff;
+            --brand: #0F0F70;
+            --accent: #ff6600;
+            --primary-color: #f78f1e;
+            --accent-color: #f9a54b;
+            --text-primary: #000000;
+            --text-secondary: #000000;
+            --text-muted: #000000;
+            --bg-primary: #ffffff;
+            --bg-secondary: #f5f5f5;
+            --bg-card: #fafafa;
+            --border-light: #e0e0e0;
+            --border-lighter: #cccccc;
+        }
+
+        [data-theme="dark"] {
+            --text: #fff;
+            --bg: #0b0b0b;
+            --brand: #0F0F70;
+            --accent: #ff6600;
+            --text-primary: #ffffff;
+            --text-secondary: #ffffff;
+            --text-muted: #ffffff;
+            --bg-primary: #1a1a1a;
+            --bg-secondary: #2a2a2a;
+            --bg-card: #212121;
+            --border-light: #3c3c3c;
+            --border-lighter: #505050;
+        }
+
+        body {
+            color: var(--text);
+            background: var(--bg);
+        }
+
+        .nav-link.active {
+            background: var(--accent) !important;
+            color: #fff !important;
+            border-radius: 5px;
+        }
+
+        .nav-link.active:hover, .nav-link.active:focus {
+            background: var(--accent) !important;
+            color: #fff !important;
+        }
+
+        body {
+            font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, sans-serif;
+            color: var(--text-primary);
+            line-height: 1.6;
+            background-color: var(--bg-primary);
+        }
+
+        /* Custom navbar */
+        .custom-navbar {
+            background-color: var(--bg-primary) !important;
+            box-shadow: 0 1px 3px rgba(0,0,0,0.1);
+            padding: 1rem 0;
+            border-bottom: 1px solid var(--border-light);
+        }
+
+        [data-theme="dark"] .custom-navbar {
+            box-shadow: 0 1px 3px rgba(0,0,0,0.3);
+        }
+
+        .navbar-brand {
+            color: var(--text-primary) !important;
+        }
+
+        .theme-toggle {
+            background: none;
+            border: 2px solid var(--text-secondary);
+            color: var(--text-secondary);
+            padding: 0.5rem;
+            border-radius: 50%;
+            width: 40px;
+            height: 40px;
+            cursor: pointer;
+            transition: all 0.3s ease;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+        }
+
+        .theme-toggle:hover {
+            border-color: var(--primary-color);
+            color: var(--primary-color);
+        }
+
+        .navbar-nav .nav-link {
+            color: var(--text-secondary);
+            font-weight: 500;
+            margin: 0 1rem;
+            transition: color 0.3s;
+        }
+
+        .navbar-nav .nav-link:hover {
+            color: var(--primary-color);
+        }
+
+        /* Main container */
+        .custom-container {
+            max-width: 1000px;
+            margin: 0 auto;
+            padding: 2rem;
+        }
+
+        /* Publication styling */
+        .publication-item {
+            background: var(--bg-card);
+            border-radius: 8px;
+            padding: 1rem;
+            margin-bottom: 1rem;
+            transition: all 0.3s;
+            border: 1px solid var(--border-light);
+        }
+
+        .publication-item:hover {
+            box-shadow: 0 8px 25px rgba(0,0,0,0.3);
+            border-color: var(--border-lighter);
+        }
+
+        .publication-title {
+            font-weight: 600;
+            margin-bottom: 0.3rem;
+            color: var(--primary-color);
+            font-size: 1rem;
+            line-height: 1.3;
+        }
+
+        .author-list {
+            font-size: 0.9em;
+            color: var(--text-secondary);
+            margin-bottom: 0.2rem;
+            line-height: 1.2;
+        }
+
+        .pub-venue {
+            font-style: italic;
+            color: var(--text-secondary);
+            margin-bottom: 0;
+            font-size: 0.8rem;
+        }
+
+        .publication-number {
+            background: var(--primary-color);
+            color: white;
+            border-radius: 50%;
+            width: 30px;
+            height: 30px;
+            display: inline-flex;
+            align-items: center;
+            justify-content: center;
+            font-weight: 600;
+            font-size: 0.9rem;
+            margin-right: 1rem;
+            flex-shrink: 0;
+        }
+
+        .publication-content {
+            flex: 1;
+        }
+
+        .status-badge {
+            display: inline-block;
+            padding: 0.25rem 0.75rem;
+            border-radius: 15px;
+            font-size: 0.8rem;
+            font-weight: 600;
+            margin-bottom: 0.5rem;
+        }
+
+        .status-submitted {
+            background: #fff3cd;
+            color: #856404;
+        }
+
+        .status-revision {
+            background: #d1ecf1;
+            color: #0c5460;
+        }
+
+        .status-published {
+            background: #d4edda;
+            color: #155724;
+        }
+
+        .stats-section {
+            background: linear-gradient(135deg, var(--primary-color) 0%, var(--accent-color) 100%);
+            color: white;
+            padding: 2rem;
+            border-radius: 15px;
+            margin-bottom: 2rem;
+            text-align: center;
+        }
+
+        .stat-item {
+            margin: 0 1rem;
+        }
+
+        .stat-number {
+            font-size: 2rem;
+            font-weight: 700;
+            display: block;
+        }
+
+        .stat-label {
+            font-size: 0.9rem;
+            opacity: 0.9;
+        }
+
+        /* Responsive */
+        @media (max-width: 768px) {
+            .navbar-nav {
+                text-align: center;
+            }
+
+            .navbar-nav .nav-link {
+                margin: 0.5rem 0;
+            }
+
+            .publication-number {
+                width: 25px;
+                height: 25px;
+                font-size: 0.8rem;
+                margin-right: 0.75rem;
+            }
+
+            .stats-section .row {
+                text-align: center;
+            }
+
+            .stat-item {
+                margin-bottom: 1rem;
+            }
+        }
+    </style>
+</head>
+<body>
+    <!-- Navbar -->
+    <nav class="navbar navbar-expand-lg custom-navbar sticky-top">
+        <div class="container">
+            <a class="navbar-brand fw-bold" href="index.html">Seokhyun Choung</a>
+            <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarNav">
+                <span class="navbar-toggler-icon"></span>
+            </button>
+            <div class="collapse navbar-collapse" id="navbarNav">
+                <ul class="navbar-nav ms-auto">
+                    <li class="nav-item">
+                        <a class="nav-link" href="about.html">About</a>
+                    </li>
+                    <li class="nav-item">
+                        <a class="nav-link" href="research.html">Research</a>
+                    </li>
+                    <li class="nav-item">
+                        <a class="nav-link active" href="publications.html" style="background: var(--accent); color: #fff; border-radius: 5px;">Publications</a>
+                    </li>
+                    <li class="nav-item">
+                        <a class="nav-link" href="cv.html">CV</a>
+                    </li>
+                    <li class="nav-item">
+                        <a class="nav-link" href="teaching.html">Teaching</a>
+                    </li>
+                    <li class="nav-item">
+                        <button class="theme-toggle ms-3" onclick="toggleTheme()" id="theme-toggle">
+                            <i class="fas fa-moon"></i>
+                        </button>
+                    </li>
+                </ul>
+            </div>
+        </div>
+    </nav>
+
+    <main class="container custom-container">
+        <!-- Header -->
+        <section class="mb-5">
+            <h1 class="display-4 fw-bold text-center mb-3">Publications</h1>
+        </section>
+
+
+        <!-- All Publications -->
+        <section class="mb-5">
+            <div class="d-flex justify-content-between align-items-center mb-4">
+                <h2 class="h3 mb-0">Publications</h2>
+                <div>
+                    <a href="https://scholar.google.com/citations?user=Y_M7TIMAAAAJ&hl=en&oi=ao" target="_blank" class="btn btn-sm me-2" style="background-color: #ff6600; color: white; border: 1px solid #ff6600;">
+                        <i class="fas fa-graduation-cap me-1"></i>View in Google Scholar
+                    </a>
+                    <a href="#conference-presentations" class="btn btn-sm" style="background-color: #ff6600; color: white; border: 1px solid #ff6600;">
+                        <i class="fas fa-podium me-1"></i>Conference Presentations
+                    </a>
+                </div>
+            </div>
+            <div class="mb-3" style="color: var(--text-primary); font-size: 0.9rem;">
+                <span style="color: var(--primary-color);">†</span>: co-first authors, 
+                <span style="color: #0f0f70;">*</span>: corresponding authors
+            </div>
+
+            <div class="publication-item">
+                <div class="d-flex">
+                    <div class="publication-number">21</div>
+                    <div class="publication-content">
+                        <div class="publication-title">Phase-transformation-enabled linear junctions drive high-rate electrosynthesis of H₂O₂</div>
+                        <div class="author-list">Kim, H.†, <strong>Choung, S.</strong>†, Ma, R., Fu, Z., Han, J. W.*, An, J.*, Bu, Y.* (2025, Submitted)</div>
+                    </div>
+                </div>
+            </div>
+
+            <div class="publication-item">
+                <div class="d-flex">
+                    <div class="publication-number">20</div>
+                    <div class="publication-content">
+                        <div class="publication-title">Hierarchical ceria nanoarchitecture enabling accelerated lattice oxygen dynamics for advanced redox reactions</div>
+                        <div class="author-list"><strong>Choung, S.</strong>†, Jang, M. G.†, Kim, Y., Lee, T., Park, W., Kim, M., Seo, O., Watanabe, T., Kumara, L. S. R., Matsumura, D., Kim, T. Y., Han, J. W.* (2025, Submitted)</div>
+                    </div>
+                </div>
+            </div>
+
+            <div class="publication-item">
+                <div class="d-flex">
+                    <div class="publication-number">19</div>
+                    <div class="publication-content">
+                        <div class="publication-title">Understanding oxygen transfer on ceria with Pt single atoms for surface reaction</div>
+                        <div class="author-list">Choi, Y.†, <strong>Choung, S.</strong>†, Han, J.†, Hwang, J., Kim, S., Park, J. Y.*, Han, J. W.*, Lee, H.* (2025, Submitted)</div>
+                    </div>
+                </div>
+            </div>
+
+            <div class="publication-item">
+                <div class="d-flex">
+                    <div class="publication-number">18</div>
+                    <div class="publication-content">
+                        <div class="publication-title">CatBench: Benchmark framework of Machine Learning Interatomic Potentials for Adsorption Energy Predictions in Heterogeneous Catalysis</div>
+                        <div class="author-list">Moon, J., Jeon, U., <strong>Choung, S.</strong>, Han, J. W.* (2025, Under Revision)</div>
+                        <div class="pub-venue">Cell Rep. Phys. Sci.</div>
+                    </div>
+                </div>
+            </div>
+
+            <div class="publication-item">
+                <div class="d-flex">
+                    <div class="publication-number">17</div>
+                    <div class="publication-content">
+                        <div class="publication-title">Partially reduced PdOx nanoparticles strongly interacting with defect-rich ceria via dynamic redox pulse for complete methane oxidation</div>
+                        <div class="author-list">Ryu, S.†, <strong>Choung, S.</strong>†, Choi, Y., Lee, H., Choi, J., Han, J. W.*, Jeong, H.* (2025)</div>
+                        <div class="pub-venue">Appl. Catal. B-Environ. Energy, 379, 125672</div>
+                    </div>
+                </div>
+            </div>
+
+            <div class="publication-item">
+                <div class="d-flex">
+                    <div class="publication-number">16</div>
+                    <div class="publication-content">
+                        <div class="publication-title">Engineering Active-Sites into Iron Hydroxide/Pt-based Nanocatalysts to Enrich the Oxygen Reduction Reaction</div>
+                        <div class="author-list">Maiti, S.†, <strong>Choung, S.</strong>†, Maiti, K., Curnan, M. T., Hur, J., Han, J. W.* (2025)</div>
+                        <div class="pub-venue">ACS Appl. Mater. Interfaces, 17, 40517-40526</div>
+                    </div>
+                </div>
+            </div>
+
+            <div class="publication-item">
+                <div class="d-flex">
+                    <div class="publication-number">15</div>
+                    <div class="publication-content">
+                        <div class="publication-title">Quantity effect of heteroatom incorporation on the oxygen evolution mechanism in ruthenium oxide</div>
+                        <div class="author-list">Jun, H.†, Kang, E.†, Moon, J.†, Kim, H., Han, S., <strong>Choung, S.</strong>, Kim, S., Yi, S. Y., Kang, E., Choi, C. H.*, Han, J. W.*, Lee, J.* (2025)</div>
+                        <div class="pub-venue">Chem, 11, 102367</div>
+                    </div>
+                </div>
+            </div>
+
+            <div class="publication-item">
+                <div class="d-flex">
+                    <div class="publication-number">14</div>
+                    <div class="publication-content">
+                        <div class="publication-title">Highly Durable Rh Single Atom Catalyst Modulated by Surface Defects on Fe-Ce Oxide Solid Solution <a href="https://scholar.google.com/scholar?hl=en&q=Seokhyun+Choung" data-final-link="TBD" style="color: #ff6600; text-decoration: none;">[Link]</a></div>
+                        <div class="author-list">Kim, G., <strong>Choung, S.</strong>, Hwang, J., Choi, Y., Kim, S., Shin, D., Han, J. W., Lee, H. (2025)</div>
+                        <div class="pub-venue">Angew. Chem. Int. Ed., 64, 2401248</div>
+                    </div>
+                </div>
+            </div>
+
+            <div class="publication-item">
+                <div class="d-flex">
+                    <div class="publication-number">13</div>
+                    <div class="publication-content">
+                        <div class="publication-title">Surface Defect Recovery in Perovskite Nanocrystals with Excess Halide for Core--Shell Structure</div>
+                        <div class="author-list">Lee, D. H., Jeong, W. H., <strong>Choung, S.</strong>, Jang, J. W., Lee, G., Song, H., Han, S., Seok, G. E., Kim, J., Han, M., et al. (2024)</div>
+                        <div class="pub-venue">ACS Energy Letters, 9, 5413-5420</div>
+                    </div>
+                </div>
+            </div>
+
+            <div class="publication-item">
+                <div class="d-flex">
+                    <div class="publication-number">12</div>
+                    <div class="publication-content">
+                        <div class="publication-title">Rise of machine learning potentials in heterogeneous catalysis: Developments, applications, and prospects <a href="https://scholar.google.com/scholar?hl=en&q=Seokhyun+Choung" data-final-link="TBD" style="color: #ff6600; text-decoration: none;">[Link]</a></div>
+                        <div class="author-list"><strong>Choung, S.</strong>, Park, W., Moon, J., Han, J. W. (2024)</div>
+                        <div class="pub-venue">Chemical Engineering Journal, 494, 152797</div>
+                    </div>
+                </div>
+            </div>
+
+            <div class="publication-item">
+                <div class="d-flex">
+                    <div class="publication-number">11</div>
+                    <div class="publication-content">
+                        <div class="publication-title">Theoretical tuning of local coordination environment of metal-nitrogen doped carbon catalysts for selective chlorine-evolution reaction</div>
+                        <div class="author-list"><strong>Choung, S.</strong>, Yang, H., Moon, J., Park, W., June, H., Lim, C., Han, J. W. (2024)</div>
+                        <div class="pub-venue">Catalysis Today, 425, 114358</div>
+                    </div>
+                </div>
+            </div>
+
+            <div class="publication-item">
+                <div class="d-flex">
+                    <div class="publication-number">10</div>
+                    <div class="publication-content">
+                        <div class="publication-title">Atomically Dispersed Ru-doped Ti₄O₇ Electrocatalysts for Chlorine Evolution Reaction with a Universal Activity</div>
+                        <div class="author-list">Lee, W., <strong>Choung, S.</strong>, Kim, S., Han, J. W., Cho, K. (2024)</div>
+                        <div class="pub-venue">Small, 20, 2401248</div>
+                    </div>
+                </div>
+            </div>
+
+            <div class="publication-item">
+                <div class="d-flex">
+                    <div class="publication-number">9</div>
+                    <div class="publication-content">
+                        <div class="publication-title">Accelerating Li-based battery design by computationally engineering materials <a href="https://scholar.google.com/scholar?hl=en&q=Seokhyun+Choung" data-final-link="TBD" style="color: #ff6600; text-decoration: none;">[Link]</a></div>
+                        <div class="author-list">Maiti, S., Curnan, M. T., Maiti, K., <strong>Choung, S.</strong>, Han, J. W. (2023)</div>
+                        <div class="pub-venue">Chem, 9, 3415-3460</div>
+                    </div>
+                </div>
+            </div>
+
+            <div class="publication-item">
+                <div class="d-flex">
+                    <div class="publication-number">8</div>
+                    <div class="publication-content">
+                        <div class="publication-title">Structural effects of nitrogen-doped titanium oxide supports on stabilization of ruthenium active species in carbon dioxide hydrogenation to formate</div>
+                        <div class="author-list">Park, K., Lee, K. R., Ahn, S., Kim, S., Haider, A., <strong>Choung, S.</strong>, Han, J. W., Jung, K. (2023)</div>
+                        <div class="pub-venue">Applied Catalysis B: Environmental, 335, 122873</div>
+                    </div>
+                </div>
+            </div>
+
+            <div class="publication-item">
+                <div class="d-flex">
+                    <div class="publication-number">7</div>
+                    <div class="publication-content">
+                        <div class="publication-title">Synthesis of metal cation doped nanoparticles for single atom alloy catalysts using spontaneous cation exchange</div>
+                        <div class="author-list">Xiao, X., Kang, S., <strong>Choung, S.</strong>, Han, J. W., Park, J., Yu, T. (2023)</div>
+                        <div class="pub-venue">Journal of Materials Chemistry A, 11, 2857-2867</div>
+                    </div>
+                </div>
+            </div>
+
+            <div class="publication-item">
+                <div class="d-flex">
+                    <div class="publication-number">6</div>
+                    <div class="publication-content">
+                        <div class="publication-title">Unveiling the catalyst deactivation mechanism in the non-oxidative dehydrogenation of light alkanes on Rh (111): Density functional theory and kinetic Monte Carlo study</div>
+                        <div class="author-list"><strong>Choung, S.</strong>, Kim, Y., Moon, J., Roh, J., Hwang, J., Han, J. W. (2023)</div>
+                        <div class="pub-venue">Catalysis Today, 411, 113819</div>
+                    </div>
+                </div>
+            </div>
+
+            <div class="publication-item">
+                <div class="d-flex">
+                    <div class="publication-number">5</div>
+                    <div class="publication-content">
+                        <div class="publication-title">Role of an Interface for Hydrogen Production Reaction over Size-Controlled Supported Metal Catalysts</div>
+                        <div class="author-list">Shin, D., Huang, R., Jang, M. G., <strong>Choung, S.</strong>, Kim, Y., Sung, K., Kim, T. Y., Han, J. W. (2022)</div>
+                        <div class="pub-venue">ACS Catalysis, 12(13), 8082-8093</div>
+                    </div>
+                </div>
+            </div>
+
+            <div class="publication-item">
+                <div class="d-flex">
+                    <div class="publication-number">4</div>
+                    <div class="publication-content">
+                        <div class="publication-title">Structural effect of Nitrogen/Carbon on the stability of anchored Ru catalysts for CO₂ hydrogenation to formate</div>
+                        <div class="author-list">Jaleel, A., Haider, A., Van Nguyen, C., Lee, K. R., <strong>Choung, S.</strong>, Han, J. W., Baek, S., Shin, C., Jung, K. (2022)</div>
+                        <div class="pub-venue">Chemical Engineering Journal, 433, 133571</div>
+                    </div>
+                </div>
+            </div>
+
+            <div class="publication-item">
+                <div class="d-flex">
+                    <div class="publication-number">3</div>
+                    <div class="publication-content">
+                        <div class="publication-title">Continuous Oxygen Vacancy Gradient in TiO₂ Photoelectrodes by a Photoelectrochemical-Driven "Self-Purification" Process</div>
+                        <div class="author-list">Kim, K. H., Choi, C., <strong>Choung, S.</strong>, Cho, Y., Kim, S., Oh, C., Lee, K., Lee, C., Zhang, K., Han, J. W. (2022)</div>
+                        <div class="pub-venue">Advanced Energy Materials, 12(7), 2103495</div>
+                    </div>
+                </div>
+            </div>
+
+            <div class="publication-item">
+                <div class="d-flex">
+                    <div class="publication-number">2</div>
+                    <div class="publication-content">
+                        <div class="publication-title">Tuning electrochemical water oxidation towards ozone evolution with heterojunction anode architectures</div>
+                        <div class="author-list">Kim, S., <strong>Choung, S.</strong>, Lee, W., Bae, S., Han, J. W., Cho, K. (2022)</div>
+                        <div class="pub-venue">Journal of Materials Chemistry A, 10(33), 17132-17141</div>
+                    </div>
+                </div>
+            </div>
+
+            <div class="publication-item">
+                <div class="d-flex">
+                    <div class="publication-number">1</div>
+                    <div class="publication-content">
+                        <div class="publication-title">Design principles of noble metal-free electrocatalysts for hydrogen production in alkaline media: combining theory and experiment</div>
+                        <div class="author-list">Jung, H., <strong>Choung, S.</strong>, Han, J. W. (2021)</div>
+                        <div class="pub-venue">Nanoscale Advances, 3(24), 6797-6826</div>
+                    </div>
+                </div>
+            </div>
+        </section>
+
+        <!-- Conference Presentations -->
+        <section class="mb-5" id="conference-presentations">
+            <h2 class="h3 mb-4">Conference Presentations</h2>
+            
+            <div class="publication-item">
+                <div class="d-flex">
+                    <div class="publication-number">10</div>
+                    <div class="publication-content">
+                        <div class="publication-title">Highly Reactive Ceria Nanomaces for Enhanced Lattice Oxygen Kinetics for Oxidation Reactions</div>
+                        <div class="author-list"><strong>Choung, S.</strong> (2025) - Oral Presentation</div>
+                        <div class="pub-venue">The 29th North American Catalysis Society Meeting (NAM29), Atlanta, United States</div>
+                    </div>
+                </div>
+            </div>
+
+            <div class="publication-item">
+                <div class="d-flex">
+                    <div class="publication-number">9</div>
+                    <div class="publication-content">
+                        <div class="publication-title">Fast and Domain-Accurate Graph Neural Network for Pt Single Atom Systems via Transfer Learning</div>
+                        <div class="author-list"><strong>Choung, S.</strong> (2025) - Poster</div>
+                        <div class="pub-venue">The 29th North American Catalysis Society Meeting (NAM29), Atlanta, United States</div>
+                    </div>
+                </div>
+            </div>
+
+            <div class="publication-item">
+                <div class="d-flex">
+                    <div class="publication-number">8</div>
+                    <div class="publication-content">
+                        <div class="publication-title">Decoding Ni Exsolution in Ceria Catalysts Using a Kinetics-Aware Graph Neural Network</div>
+                        <div class="author-list"><strong>Choung, S.</strong> (2025) - Poster</div>
+                        <div class="pub-venue">2025 The Korean Society of Industrial and Engineering Chemistry (KSIEC), Jeju, South Korea</div>
+                    </div>
+                </div>
+            </div>
+
+            <div class="publication-item">
+                <div class="d-flex">
+                    <div class="publication-number">7</div>
+                    <div class="publication-content">
+                        <div class="publication-title">Kinetics-based Graph Neural Network Simulation of Nickel Exsolution Growth in Ceria Catalysts</div>
+                        <div class="author-list"><strong>Choung, S.</strong> (2025) - Oral Presentation</div>
+                        <div class="pub-venue">Korean Institute of Chemical Engineers (KICHE), Daegu, South Korea</div>
+                    </div>
+                </div>
+            </div>
+
+            <div class="publication-item">
+                <div class="d-flex">
+                    <div class="publication-number">6</div>
+                    <div class="publication-content">
+                        <div class="publication-title">Machine Learning Potentials in Multiscale Simulation of Heterogeneous Catalysis</div>
+                        <div class="author-list"><strong>Choung, S.</strong> (2024) - Meet the Faculty Session</div>
+                        <div class="pub-venue">American Institute of Chemical Engineers (AICHE), San Diego, United States</div>
+                    </div>
+                </div>
+            </div>
+
+            <div class="publication-item">
+                <div class="d-flex">
+                    <div class="publication-number">5</div>
+                    <div class="publication-content">
+                        <div class="publication-title">Lattice Oxygen Kinetics in Nanostructured Ceria: Combining Graph Neural Network Multi-scale Simulations and In-situ DRIFT Characterization</div>
+                        <div class="author-list"><strong>Choung, S.</strong> (2024) - Oral Presentation</div>
+                        <div class="pub-venue">American Institute of Chemical Engineers (AICHE), San Diego, United States</div>
+                    </div>
+                </div>
+            </div>
+
+            <div class="publication-item">
+                <div class="d-flex">
+                    <div class="publication-number">4</div>
+                    <div class="publication-content">
+                        <div class="publication-title">Unravelling the Lattice Oxygen Activation in Nanostructured Ceria using Graph Neural Network Multi-scale Simulations</div>
+                        <div class="author-list"><strong>Choung, S.</strong> (2024) - Oral Presentation</div>
+                        <div class="pub-venue">Korean Institute of Chemical Engineers (KICHE), Busan, South Korea</div>
+                    </div>
+                </div>
+            </div>
+
+            <div class="publication-item">
+                <div class="d-flex">
+                    <div class="publication-number">3</div>
+                    <div class="publication-content">
+                        <div class="publication-title">Breaking Scaling Relation of Electrochemical Oxygen Reduction Catalysis through Iron-Hydroxide Decoration</div>
+                        <div class="author-list"><strong>Choung, S.</strong> (2023) - Oral Presentation</div>
+                        <div class="pub-venue">NANO KOREA 2023 Symposium, Seoul, South Korea</div>
+                    </div>
+                </div>
+            </div>
+
+            <div class="publication-item">
+                <div class="d-flex">
+                    <div class="publication-number">2</div>
+                    <div class="publication-content">
+                        <div class="publication-title">Mechanistic Origin of Selective and Active Electrochemical Ozone Evolution Reaction over Ni-Sb-SnO₂ Electrode</div>
+                        <div class="author-list"><strong>Choung, S.</strong> (2023) - Oral Presentation</div>
+                        <div class="pub-venue">The 28th North American Catalysis Society Meeting (NAM28), Providence, Rhode Island, United States</div>
+                    </div>
+                </div>
+            </div>
+
+            <div class="publication-item">
+                <div class="d-flex">
+                    <div class="publication-number">1</div>
+                    <div class="publication-content">
+                        <div class="publication-title">First-Principles Design of Rh-based Alloy Catalysts for Selective Propane Dehydrogenation</div>
+                        <div class="author-list"><strong>Choung, S.</strong> (2022) - Oral Presentation</div>
+                        <div class="pub-venue">American Institute of Chemical Engineers (AICHE), Arizona, United States</div>
+                    </div>
+                </div>
+            </div>
+        </section>
+    </main>
+
+    <!-- Footer -->
+    <footer class="text-center py-4 mt-5" style="background-color: var(--bg-secondary);">
+        <p class="mb-0">&copy; 2025 Seokhyun Choung
+    </footer>
+
+    <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/js/bootstrap.bundle.min.js"></script>
+    <script>
+        // Theme toggle function
+        function toggleTheme() {
+            const html = document.documentElement;
+            const themeToggle = document.getElementById('theme-toggle');
+            const icon = themeToggle.querySelector('i');
+            
+            if (html.getAttribute('data-theme') === 'dark') {
+                html.removeAttribute('data-theme');
+                icon.className = 'fas fa-moon';
+                localStorage.setItem('theme', 'light');
+            } else {
+                html.setAttribute('data-theme', 'dark');
+                icon.className = 'fas fa-sun';
+                localStorage.setItem('theme', 'dark');
+            }
+        }
+
+        // Load saved theme
+        document.addEventListener('DOMContentLoaded', function() {
+            const savedTheme = localStorage.getItem('theme');
+            const themeToggle = document.getElementById('theme-toggle');
+            const icon = themeToggle.querySelector('i');
+            
+            if (savedTheme === 'dark') {
+                document.documentElement.setAttribute('data-theme', 'dark');
+                icon.className = 'fas fa-sun';
+            }
+        });
+    </script>
+</body>
+</html>
