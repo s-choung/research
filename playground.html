@@ -1,0 +1,1112 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>3D Structure Playground - Seokhyun Choung</title>
+    <script src="https://code.jquery.com/jquery-3.6.0.min.js"></script>
+    <script src="https://3Dmol.csb.pitt.edu/build/3Dmol-min.js"></script>
+    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/css/bootstrap.min.css" rel="stylesheet">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0-beta3/css/all.min.css">
+    <style>
+        :root {
+            --primary-color: #f78f1e;
+            --accent-color: #f9a54b;
+            --text-primary: #000000;
+            --text-secondary: #000000;
+            --text-muted: #000000;
+            --bg-primary: #ffffff;
+            --bg-secondary: #f5f5f5;
+            --bg-card: #fafafa;
+            --border-light: #e0e0e0;
+            --border-lighter: #cccccc;
+        }
+
+        [data-theme="dark"] {
+            --text-primary: #ffffff;
+            --text-secondary: #ffffff;
+            --text-muted: #ffffff;
+            --bg-primary: #1a1a1a;
+            --bg-secondary: #2a2a2a;
+            --bg-card: #212121;
+            --border-light: #3c3c3c;
+            --border-lighter: #505050;
+        }
+
+        body {
+            font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, sans-serif;
+            color: var(--text-primary);
+            line-height: 1.6;
+            background-color: var(--bg-primary);
+            margin: 0;
+            padding: 0;
+            height: 100vh;
+            overflow: hidden;
+        }
+
+        /* Custom navbar */
+        .custom-navbar {
+            background-color: var(--bg-primary) !important;
+            box-shadow: 0 1px 3px rgba(0,0,0,0.1);
+            padding: 1rem 0;
+            border-bottom: 1px solid var(--border-light);
+            position: relative;
+            z-index: 1000;
+        }
+
+        [data-theme="dark"] .custom-navbar {
+            box-shadow: 0 1px 3px rgba(0,0,0,0.3);
+        }
+
+        .theme-toggle {
+            background: none;
+            border: 2px solid var(--text-secondary);
+            color: var(--text-secondary);
+            padding: 0.5rem;
+            border-radius: 50%;
+            width: 40px;
+            height: 40px;
+            cursor: pointer;
+            transition: all 0.3s ease;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+        }
+
+        .theme-toggle:hover {
+            border-color: var(--primary-color);
+            color: var(--primary-color);
+        }
+
+        .navbar-brand {
+            color: var(--text-primary) !important;
+        }
+
+        .navbar-nav .nav-link {
+            color: var(--text-secondary);
+            font-weight: 500;
+            margin: 0 1rem;
+            transition: color 0.3s;
+        }
+
+        .navbar-nav .nav-link:hover {
+            color: var(--primary-color);
+        }
+
+        .navbar-nav .nav-link.active {
+            background: var(--primary-color) !important;
+            color: #fff !important;
+            border-radius: 5px;
+        }
+
+        /* Full-screen playground layout */
+        .playground-container {
+            display: flex;
+            flex-direction: column;
+            height: calc(100vh - 80px); /* Account for navbar */
+            width: 100%;
+        }
+
+        .control-panel {
+            background: var(--bg-card);
+            border-bottom: 1px solid var(--border-light);
+            padding: 1rem;
+            display: flex;
+            gap: 1rem;
+            flex-wrap: wrap;
+            align-items: center;
+            justify-content: center;
+            z-index: 100;
+            position: relative;
+        }
+
+        .selection-group {
+            flex: 0 0 auto;
+            min-width: 200px;
+            max-width: 300px;
+        }
+
+        .selection-group label {
+            display: block;
+            margin-bottom: 5px;
+            font-weight: 600;
+            color: var(--text-primary);
+            font-size: 0.9rem;
+        }
+
+        .selection-group select {
+            width: 100%;
+            padding: 8px 12px;
+            border: 1px solid var(--border-light);
+            border-radius: 6px;
+            font-size: 14px;
+            background: var(--bg-primary);
+            color: var(--text-primary);
+        }
+
+        /* Full-screen viewer */
+        .viewer-container {
+            flex: 1;
+            position: relative;
+            background: white;
+            overflow: hidden;
+        }
+
+        #viewer {
+            width: 100%;
+            height: 100%;
+            border: none;
+            position: relative;
+            z-index: 1;
+        }
+
+        /* Fix canvas positioning */
+        #viewer canvas {
+            position: relative !important;
+            z-index: 1 !important;
+            top: 0 !important;
+            left: 0 !important;
+        }
+
+        .info-panel {
+            position: absolute;
+            top: 20px;
+            right: 20px;
+            background: rgba(248, 249, 250, 0.95);
+            border-radius: 8px;
+            padding: 15px;
+            max-width: 300px;
+            box-shadow: 0 4px 12px rgba(0,0,0,0.15);
+            z-index: 10;
+            backdrop-filter: blur(5px);
+        }
+
+        [data-theme="dark"] .info-panel {
+            background: rgba(33, 33, 33, 0.95);
+            color: var(--text-primary);
+        }
+
+        .info-panel h3 {
+            margin: 0 0 10px 0;
+            font-size: 1.1rem;
+            color: var(--primary-color);
+        }
+
+        .info-panel p {
+            margin: 0;
+            font-size: 0.9rem;
+            color: var(--text-primary);
+        }
+
+        .error {
+            background: rgba(248, 215, 218, 0.95) !important;
+            color: #721c24 !important;
+        }
+
+        /* Responsive */
+        @media (max-width: 768px) {
+            .navbar-nav {
+                text-align: center;
+            }
+
+            .navbar-nav .nav-link {
+                margin: 0.5rem 0;
+            }
+
+            .control-panel {
+                flex-direction: column;
+                gap: 0.5rem;
+                padding: 0.75rem;
+            }
+
+            .selection-group {
+                min-width: 100%;
+                max-width: 100%;
+            }
+
+            .info-panel {
+                position: relative;
+                top: auto;
+                right: auto;
+                max-width: 100%;
+                margin: 10px;
+            }
+        }
+
+        /* Watermark styling */
+        .watermark {
+            position: absolute;
+            top: 50%;
+            left: 50%;
+            transform: translate(-50%, -50%);
+            font-size: 2.5rem;
+            color: rgba(0, 150, 255, 0.7);
+            font-weight: bold;
+            text-align: center;
+            pointer-events: none;
+            z-index: 999999;
+            user-select: none;
+            white-space: pre-line;
+            text-shadow: 2px 2px 4px rgba(255, 255, 255, 0.9);
+            background: rgba(255, 255, 255, 0.3);
+            padding: 20px;
+            border-radius: 10px;
+        }
+
+        .watermark.small {
+            font-size: 1.2rem;
+            top: 15%;
+            color: rgba(0, 100, 200, 0.8);
+            text-shadow: 2px 2px 4px rgba(255, 255, 255, 0.9);
+            background: rgba(255, 255, 255, 0.4);
+            padding: 10px;
+        }
+
+        [data-theme="dark"] .watermark {
+            color: rgba(100, 200, 255, 0.8);
+            text-shadow: 2px 2px 4px rgba(0, 0, 0, 0.9);
+            background: rgba(0, 0, 0, 0.4);
+        }
+
+        [data-theme="dark"] .watermark.small {
+            color: rgba(100, 200, 255, 0.9);
+            text-shadow: 2px 2px 4px rgba(0, 0, 0, 0.9);
+            background: rgba(0, 0, 0, 0.5);
+        }
+
+        /* Download button styling */
+        .btn-primary {
+            background: linear-gradient(135deg, var(--primary-color), var(--accent-color));
+            border: none;
+            color: white;
+            padding: 8px 16px;
+            border-radius: 6px;
+            font-weight: 500;
+            transition: all 0.3s ease;
+        }
+
+        .btn-primary:hover {
+            transform: translateY(-2px);
+            box-shadow: 0 4px 12px rgba(247, 143, 30, 0.3);
+        }
+
+        /* Attribution */
+        .attribution {
+            position: absolute;
+            bottom: 10px;
+            right: 10px;
+            font-size: 0.8rem;
+            color: rgba(0, 0, 0, 0.5);
+            background: rgba(255, 255, 255, 0.8);
+            padding: 5px 10px;
+            border-radius: 5px;
+            z-index: 10;
+        }
+
+        [data-theme="dark"] .attribution {
+            color: rgba(255, 255, 255, 0.5);
+            background: rgba(0, 0, 0, 0.8);
+        }
+    </style>
+</head>
+<body>
+    <!-- Navbar -->
+    <nav class="navbar navbar-expand-lg custom-navbar sticky-top">
+        <div class="container">
+            <a class="navbar-brand fw-bold" href="index.html">Seokhyun Choung</a>
+            <button class="navbar-toggler border-0" type="button" data-bs-toggle="collapse" data-bs-target="#navbarNav" style="box-shadow: none;">
+                <span style="color: var(--text-primary);"><i class="fas fa-bars"></i></span>
+            </button>
+            <div class="collapse navbar-collapse" id="navbarNav">
+                <ul class="navbar-nav ms-auto">
+                    <li class="nav-item">
+                        <a class="nav-link" href="about.html">About</a>
+                    </li>
+                    <li class="nav-item">
+                        <a class="nav-link" href="research.html">Research</a>
+                    </li>
+                    <li class="nav-item">
+                        <a class="nav-link" href="publications.html">Publications</a>
+                    </li>
+                    <li class="nav-item">
+                        <a class="nav-link" href="cv_seokhyunchoung_2025Aug.pdf" target="_blank">CV</a>
+                    </li>
+                    <li class="nav-item">
+                        <a class="nav-link" href="teaching.html">Teaching</a>
+                    </li>
+                    <li class="nav-item">
+                        <a class="nav-link active" href="playground.html">Playground</a>
+                    </li>
+                    <li class="nav-item">
+                        <button class="theme-toggle ms-3" onclick="toggleTheme()" id="theme-toggle">
+                            <i class="fas fa-moon"></i>
+                        </button>
+                    </li>
+                </ul>
+            </div>
+        </div>
+    </nav>
+
+    <!-- Full-screen playground -->
+    <div class="playground-container">
+        <!-- Control Panel -->
+        <div class="control-panel">
+            <div class="selection-group">
+                <label for="publicationSelect"><i class="fas fa-book me-2"></i>Publication:</label>
+                <select id="publicationSelect">
+                    <option value="">Choose a publication...</option>
+                </select>
+            </div>
+            
+            <div class="selection-group">
+                <label for="structureSelect"><i class="fas fa-cube me-2"></i>Structure:</label>
+                <select id="structureSelect" disabled>
+                    <option value="">Select publication first...</option>
+                </select>
+            </div>
+            
+            <div class="selection-group">
+                <button id="downloadBtn" class="btn btn-primary" onclick="downloadStructure()" style="margin-top: 1.5rem;">
+                    <i class="fas fa-download me-2"></i>Download XYZ
+                </button>
+            </div>
+        </div>
+
+        <!-- Full-screen viewer -->
+        <div class="viewer-container">
+            <div id="viewer"></div>
+            
+            <!-- Info panel removed -->
+        </div>
+    </div>
+        
+        <div class="control-panel">
+            <div class="selection-group">
+                <label for="publicationSelect">Select Publication:</label>
+                <select id="publicationSelect">
+                    <option value="">Choose a publication...</option>
+                </select>
+            </div>
+            
+            <div class="selection-group">
+                <label for="structureSelect">Select Structure:</label>
+                <select id="structureSelect" disabled>
+                    <option value="">Select publication first...</option>
+                </select>
+            </div>
+        </div>
+        
+        <!-- Full-screen viewer -->
+        <div class="viewer-container">
+            <div id="viewer"></div>
+            
+            <!-- Drag and Drop Zone -->
+            <div class="drop-zone" id="dropZone">
+                <div class="drop-message">
+                    📁 Drop XYZ, CIF, or VASP files here 📁
+                </div>
+            </div>
+            
+            <!-- Attribution -->
+            <div class="attribution">
+                Powered by <a href="https://3dmol.csb.pitt.edu/" target="_blank" style="color: inherit;">3Dmol.js</a>
+            </div>
+        </div>
+    </div>
+
+    <script>
+        let viewer;
+        let publications = [];
+        let currentStructures = {};
+
+        // Publications data extracted from publications.html
+        const publicationsData = [
+            { id: "21", title: "Phase-transformation-enabled linear junctions drive high-rate electrosynthesis of H₂O₂", available: true, structures: ["structure1", "structure2"] },
+            { id: "20", title: "Hierarchical ceria nanoarchitecture enabling accelerated lattice oxygen dynamics", available: true, structures: ["structure1", "structure2"] },
+            { id: "19", title: "Understanding oxygen transfer on ceria with Pt single atoms", available: false, structures: [] },
+            { id: "18", title: "CatBench: Benchmark framework of Machine Learning Interatomic Potentials", available: true, structures: ["structure1"] },
+            { id: "17", title: "Partially reduced PdOx nanoparticles for complete methane oxidation", available: true, structures: ["structure1", "structure2"] },
+            { id: "16", title: "Engineering Active-Sites into Iron Hydroxide/Pt-based Nanocatalysts", available: false, structures: [] },
+            { id: "15", title: "Quantity effect of heteroatom incorporation on oxygen evolution", available: false, structures: [] },
+            { id: "14", title: "Highly Durable Rh Single Atom Catalyst on Fe-Ce Oxide", available: true, structures: ["structure1"] },
+            { id: "13", title: "Surface Defect Recovery in Perovskite Nanocrystals", available: false, structures: [] },
+            { id: "12", title: "Rise of machine learning potentials in heterogeneous catalysis", available: true, structures: ["structure1", "structure2"] },
+            { id: "11", title: "Theoretical tuning of metal-nitrogen doped carbon catalysts", available: true, structures: ["structure1"] },
+            { id: "10", title: "Atomically Dispersed Ru-doped Ti₄O₇ Electrocatalysts", available: false, structures: [] },
+            { id: "9", title: "Accelerating Li-based battery design by computationally engineering", available: true, structures: ["structure1"] },
+            { id: "8", title: "Structural effects of nitrogen-doped titanium oxide supports", available: false, structures: [] },
+            { id: "7", title: "Synthesis of metal cation doped nanoparticles for single atom alloy", available: false, structures: [] },
+            { id: "6", title: "Unveiling catalyst deactivation mechanism in alkanes dehydrogenation", available: true, structures: ["structure1", "structure2"] },
+            { id: "5", title: "Role of Interface for Hydrogen Production over Metal Catalysts", available: false, structures: [] },
+            { id: "4", title: "Structural effect of Nitrogen/Carbon on Ru catalysts stability", available: false, structures: [] },
+            { id: "3", title: "Continuous Oxygen Vacancy Gradient in TiO₂ Photoelectrodes", available: true, structures: ["structure1"] },
+            { id: "2", title: "Tuning electrochemical water oxidation towards ozone evolution", available: false, structures: [] },
+            { id: "1", title: "Design principles of noble metal-free electrocatalysts", available: true, structures: ["structure1"] }
+        ];
+
+        // Load water crystal structure from CIF file with 5x5x5 repetition
+        async function createWaterCrystalStructure() {
+            try {
+                const response = await fetch('structures/H2O.cif');
+                if (!response.ok) {
+                    throw new Error('H2O.cif not found');
+                }
+                const cifData = await response.text();
+                const baseXyz = cifToXyz(cifData);
+                return createSupercell(baseXyz, 5, 5, 5);
+            } catch (error) {
+                console.log('Using fallback water structure');
+                // Fallback simple water structure with repetition
+                const baseStructure = `3\nWater molecule\nO 0.0 0.0 0.0\nH 0.757 0.586 0.0\nH -0.757 0.586 0.0`;
+                return createSupercell(baseStructure, 5, 5, 5);
+            }
+        }
+        
+        // Create supercell from XYZ data
+        function createSupercell(xyzData, nx, ny, nz) {
+            const lines = xyzData.trim().split('\n');
+            const numAtoms = parseInt(lines[0]);
+            const comment = lines[1];
+            
+            // Parse atoms
+            const atoms = [];
+            for (let i = 2; i < 2 + numAtoms; i++) {
+                const parts = lines[i].trim().split(/\s+/);
+                if (parts.length >= 4) {
+                    atoms.push({
+                        element: parts[0],
+                        x: parseFloat(parts[1]),
+                        y: parseFloat(parts[2]),
+                        z: parseFloat(parts[3])
+                    });
+                }
+            }
+            
+            // Determine cell size (simple estimate)
+            let maxX = Math.max(...atoms.map(a => a.x));
+            let maxY = Math.max(...atoms.map(a => a.y));
+            let maxZ = Math.max(...atoms.map(a => a.z));
+            let minX = Math.min(...atoms.map(a => a.x));
+            let minY = Math.min(...atoms.map(a => a.y));
+            let minZ = Math.min(...atoms.map(a => a.z));
+            
+            const cellX = maxX - minX + 2;
+            const cellY = maxY - minY + 2;
+            const cellZ = maxZ - minZ + 2;
+            
+            // Create supercell
+            const supercellAtoms = [];
+            for (let i = 0; i < nx; i++) {
+                for (let j = 0; j < ny; j++) {
+                    for (let k = 0; k < nz; k++) {
+                        atoms.forEach(atom => {
+                            supercellAtoms.push({
+                                element: atom.element,
+                                x: atom.x + i * cellX,
+                                y: atom.y + j * cellY,
+                                z: atom.z + k * cellZ
+                            });
+                        });
+                    }
+                }
+            }
+            
+            // Generate XYZ format
+            let result = `${supercellAtoms.length}\n${comment} (${nx}x${ny}x${nz} supercell)\n`;
+            supercellAtoms.forEach(atom => {
+                result += `${atom.element} ${atom.x.toFixed(6)} ${atom.y.toFixed(6)} ${atom.z.toFixed(6)}\n`;
+            });
+            
+            return result;
+        }
+
+        // Create original water crystal structure (fallback)
+        function createFallbackWaterStructure() {
+            // Lattice parameters
+            const a = 7.50;
+            const b = 7.50;
+            const c = 7.06;
+            const alpha = 90.0 * Math.PI / 180;
+            const beta = 90.0 * Math.PI / 180;
+            const gamma = 120.0 * Math.PI / 180;
+            
+            // Convert lattice to Cartesian coordinates
+            function fractionalToCartesian(x, y, z) {
+                const cart_x = a * x + b * y * Math.cos(gamma);
+                const cart_y = b * y * Math.sin(gamma);
+                const cart_z = c * z;
+                return [cart_x, cart_y, cart_z];
+            }
+            
+            // Base unit cell atoms
+            const baseAtoms = [
+                // 6c H atoms
+                { element: 'H', frac: [0.336017, 0.336017, 0.696031] },
+                { element: 'H', frac: [0.460401, 0.460401, 0.511393] },
+                // 6c O atoms  
+                { element: 'O', frac: [0.334231, 0.334231, 0.555157] },
+                { element: 'O', frac: [0.667414, 0.667414, 0.430407] },
+                // 12d H atoms
+                { element: 'H', frac: [0.792978, 0.669243, 0.478506] }
+            ];
+            
+            // Generate symmetry-equivalent positions for space group
+            function generateSymmetryPositions(atom) {
+                const positions = [];
+                const [x, y, z] = atom.frac;
+                
+                if (atom.element === 'H' && baseAtoms.indexOf(atom) < 2) {
+                    // 6c positions
+                    positions.push([x, y, z]);
+                    positions.push([1-y, x-y, z]);
+                    positions.push([1-x+y, 1-x, z]);
+                    positions.push([1-x, 1-y, 1-z]);
+                    positions.push([y, 1-x+y, 1-z]);
+                    positions.push([x-y, x, 1-z]);
+                } else if (atom.element === 'O') {
+                    // 6c positions
+                    positions.push([x, y, z]);
+                    positions.push([1-y, x-y, z]);
+                    positions.push([1-x+y, 1-x, z]);
+                    positions.push([1-x, 1-y, 1-z]);
+                    positions.push([y, 1-x+y, 1-z]);
+                    positions.push([x-y, x, 1-z]);
+                } else {
+                    // 12d positions
+                    positions.push([x, y, z]);
+                    positions.push([1-y, x-y, z]);
+                    positions.push([1-x+y, 1-x, z]);
+                    positions.push([1-x, 1-y, 1-z]);
+                    positions.push([y, 1-x+y, 1-z]);
+                    positions.push([x-y, x, 1-z]);
+                    positions.push([y, x, 0.5+z]);
+                    positions.push([x-y, 1-y, 0.5+z]);
+                    positions.push([1-x, 1-x+y, 0.5+z]);
+                    positions.push([1-y, 1-x, 0.5-z]);
+                    positions.push([1-x+y, y, 0.5-z]);
+                    positions.push([x, x-y, 0.5-z]);
+                }
+                
+                return positions;
+            }
+            
+            // Create XYZ format string
+            let xyzData = '';
+            const allAtoms = [];
+            
+            // Generate 5x5x5 supercell
+            for (let i = 0; i < 5; i++) {
+                for (let j = 0; j < 5; j++) {
+                    for (let k = 0; k < 5; k++) {
+                        baseAtoms.forEach(atom => {
+                            const positions = generateSymmetryPositions(atom);
+                            positions.forEach(pos => {
+                                // Apply periodic translation
+                                const fracX = pos[0] + i;
+                                const fracY = pos[1] + j;
+                                const fracZ = pos[2] + k;
+                                
+                                // Convert to Cartesian
+                                const [cartX, cartY, cartZ] = fractionalToCartesian(fracX, fracY, fracZ);
+                                allAtoms.push({ element: atom.element, x: cartX, y: cartY, z: cartZ });
+                            });
+                        });
+                    }
+                }
+            }
+            
+            // Create XYZ format
+            xyzData = `${allAtoms.length}\nWater Crystal Structure (5x5x5 supercell)\n`;
+            allAtoms.forEach(atom => {
+                xyzData += `${atom.element} ${atom.x.toFixed(6)} ${atom.y.toFixed(6)} ${atom.z.toFixed(6)}\n`;
+            });
+            
+            return xyzData;
+        }
+
+        // Initialize 3Dmol viewer
+        function initViewer() {
+            const element = document.getElementById('viewer');
+            viewer = $3Dmol.createViewer(element, {
+                defaultcolors: $3Dmol.rasmolElementColors,
+                backgroundColor: 'white'
+            });
+            
+            // Set background and render
+            viewer.setBackgroundColor('white');
+            
+            // Load default water crystal structure
+            loadDefaultStructure();
+        }
+        
+        // Show watermark text
+        function showWatermark(text, isSmall = false) {
+            let watermark = document.querySelector('.watermark');
+            if (!watermark) {
+                watermark = document.createElement('div');
+                watermark.className = 'watermark';
+                document.querySelector('.viewer-container').appendChild(watermark);
+            }
+            watermark.textContent = text;
+            watermark.className = isSmall ? 'watermark small' : 'watermark';
+        }
+        
+        // Hide watermark
+        function hideWatermark() {
+            const watermark = document.querySelector('.watermark');
+            if (watermark) {
+                watermark.remove();
+            }
+        }
+
+        // Load default water crystal structure
+        async function loadDefaultStructure() {
+            const xyzData = await createWaterCrystalStructure();
+            currentStructureData = xyzData; // Store for download
+            
+            viewer.clear();
+            viewer.addModel(xyzData, 'xyz');
+            
+            // Style the structure
+            viewer.setStyle({}, {
+                stick: { radius: 0.15 },
+                sphere: { scale: 0.3 }
+            });
+            
+            // Center and zoom to 500% for immersion effect
+            viewer.zoomTo();
+            viewer.zoom(5.0); // 500% zoom for water immersion effect
+            viewer.render();
+            
+            // Show water immersion watermark
+            showWatermark('🌊 You are in the water 🌊\nDrag & drop structure files here', false);
+        }
+
+        // Load publications into dropdown
+        function loadPublications() {
+            const select = document.getElementById('publicationSelect');
+            
+            publicationsData.forEach(pub => {
+                const option = document.createElement('option');
+                option.value = pub.id;
+                option.textContent = `${pub.id}. ${pub.title}`;
+                option.className = pub.available ? 'publication-item' : 'publication-item unavailable';
+                
+                if (!pub.available) {
+                    option.disabled = true;
+                    option.textContent += ' (In Construction)';
+                }
+                
+                select.appendChild(option);
+            });
+        }
+
+        // Handle publication selection
+        function onPublicationChange() {
+            const publicationId = document.getElementById('publicationSelect').value;
+            const structureSelect = document.getElementById('structureSelect');
+            
+            // Clear structure dropdown
+            structureSelect.innerHTML = '<option value="">Choose a structure...</option>';
+            
+            if (!publicationId) {
+                structureSelect.disabled = true;
+                // Load default water crystal structure when no publication selected
+                loadDefaultStructure();
+                return;
+            }
+            
+            const publication = publicationsData.find(p => p.id === publicationId);
+            if (!publication || !publication.available) {
+                structureSelect.disabled = true;
+                // Load default water crystal structure when publication unavailable
+                loadDefaultStructure();
+                return;
+            }
+            
+            // Populate structure dropdown
+            structureSelect.disabled = false;
+            publication.structures.forEach(structure => {
+                const option = document.createElement('option');
+                option.value = structure;
+                option.textContent = structure;
+                structureSelect.appendChild(option);
+            });
+            
+            currentStructures = publication.structures;
+        }
+
+        // Handle structure selection and loading
+        function onStructureChange() {
+            const publicationId = document.getElementById('publicationSelect').value;
+            const structureId = document.getElementById('structureSelect').value;
+            
+            if (!publicationId || !structureId) {
+                return;
+            }
+            
+            loadStructure(publicationId, structureId);
+        }
+        
+        // Convert VASP POSCAR to XYZ format
+        function poscarToXyz(poscarData) {
+            const lines = poscarData.trim().split('\n');
+            let currentLine = 0;
+            
+            const comment = lines[currentLine++];
+            const scale = parseFloat(lines[currentLine++]);
+            
+            // Lattice vectors
+            const lattice = [];
+            for (let i = 0; i < 3; i++) {
+                const vec = lines[currentLine++].trim().split(/\s+/).map(x => parseFloat(x) * scale);
+                lattice.push(vec);
+            }
+            
+            // Element types
+            const elements = lines[currentLine++].trim().split(/\s+/);
+            const counts = lines[currentLine++].trim().split(/\s+/).map(x => parseInt(x));
+            
+            // Skip coordinate type line
+            currentLine++;
+            
+            // Parse coordinates
+            const atoms = [];
+            let elementIndex = 0;
+            let elementCount = 0;
+            
+            for (let i = 0; i < counts.reduce((a, b) => a + b, 0); i++) {
+                if (elementCount >= counts[elementIndex]) {
+                    elementIndex++;
+                    elementCount = 0;
+                }
+                
+                const coords = lines[currentLine++].trim().split(/\s+/).map(x => parseFloat(x));
+                
+                // Convert fractional to Cartesian
+                const cartesian = [
+                    coords[0] * lattice[0][0] + coords[1] * lattice[1][0] + coords[2] * lattice[2][0],
+                    coords[0] * lattice[0][1] + coords[1] * lattice[1][1] + coords[2] * lattice[2][1],
+                    coords[0] * lattice[0][2] + coords[1] * lattice[1][2] + coords[2] * lattice[2][2]
+                ];
+                
+                atoms.push({
+                    element: elements[elementIndex],
+                    x: cartesian[0],
+                    y: cartesian[1],
+                    z: cartesian[2]
+                });
+                
+                elementCount++;
+            }
+            
+            // Convert to XYZ format
+            let xyzData = `${atoms.length}\n${comment}\n`;
+            atoms.forEach(atom => {
+                xyzData += `${atom.element} ${atom.x.toFixed(6)} ${atom.y.toFixed(6)} ${atom.z.toFixed(6)}\n`;
+            });
+            
+            return xyzData;
+        }
+        
+        // Convert CIF to XYZ format (basic implementation)
+        function cifToXyz(cifData) {
+            const lines = cifData.split('\n');
+            const atoms = [];
+            let a = 1, b = 1, c = 1, alpha = 90, beta = 90, gamma = 90;
+            
+            // Parse lattice parameters
+            for (const line of lines) {
+                if (line.includes('_cell_length_a')) a = parseFloat(line.split(/\s+/)[1]);
+                if (line.includes('_cell_length_b')) b = parseFloat(line.split(/\s+/)[1]);
+                if (line.includes('_cell_length_c')) c = parseFloat(line.split(/\s+/)[1]);
+                if (line.includes('_cell_angle_alpha')) alpha = parseFloat(line.split(/\s+/)[1]);
+                if (line.includes('_cell_angle_beta')) beta = parseFloat(line.split(/\s+/)[1]);
+                if (line.includes('_cell_angle_gamma')) gamma = parseFloat(line.split(/\s+/)[1]);
+            }
+            
+            // Convert angles to radians
+            const alphaRad = alpha * Math.PI / 180;
+            const betaRad = beta * Math.PI / 180;
+            const gammaRad = gamma * Math.PI / 180;
+            
+            // Parse atoms
+            let inAtomSite = false;
+            for (const line of lines) {
+                if (line.includes('_atom_site_fract_x')) {
+                    inAtomSite = true;
+                    continue;
+                }
+                if (inAtomSite && line.trim().length > 0 && !line.startsWith('_') && !line.startsWith('#')) {
+                    const parts = line.trim().split(/\s+/);
+                    if (parts.length >= 6) {
+                        const element = parts[0].replace(/[0-9+\-]/g, '');
+                        const x = parseFloat(parts[3]);
+                        const y = parseFloat(parts[4]);
+                        const z = parseFloat(parts[5]);
+                        
+                        // Convert fractional to Cartesian (simplified for orthogonal systems)
+                        const cartX = a * x + b * y * Math.cos(gammaRad);
+                        const cartY = b * y * Math.sin(gammaRad);
+                        const cartZ = c * z;
+                        
+                        atoms.push({ element, x: cartX, y: cartY, z: cartZ });
+                    }
+                }
+            }
+            
+            // Convert to XYZ format
+            let xyzData = `${atoms.length}\nConverted from CIF\n`;
+            atoms.forEach(atom => {
+                xyzData += `${atom.element} ${atom.x.toFixed(6)} ${atom.y.toFixed(6)} ${atom.z.toFixed(6)}\n`;
+            });
+            
+            return xyzData;
+        }
+        
+        // Setup drag and drop functionality
+        function setupDragDrop() {
+            const dropZone = document.getElementById('dropZone');
+            const viewer = document.getElementById('viewer');
+            
+            ['dragenter', 'dragover', 'dragleave', 'drop'].forEach(eventName => {
+                viewer.addEventListener(eventName, preventDefaults, false);
+                dropZone.addEventListener(eventName, preventDefaults, false);
+            });
+            
+            function preventDefaults(e) {
+                e.preventDefault();
+                e.stopPropagation();
+            }
+            
+            ['dragenter', 'dragover'].forEach(eventName => {
+                viewer.addEventListener(eventName, highlight, false);
+            });
+            
+            ['dragleave', 'drop'].forEach(eventName => {
+                viewer.addEventListener(eventName, unhighlight, false);
+            });
+            
+            function highlight() {
+                dropZone.classList.add('active');
+            }
+            
+            function unhighlight() {
+                dropZone.classList.remove('active');
+            }
+            
+            viewer.addEventListener('drop', handleDrop, false);
+            
+            function handleDrop(e) {
+                const dt = e.dataTransfer;
+                const files = dt.files;
+                
+                if (files.length > 0) {
+                    handleFile(files[0]);
+                }
+            }
+        }
+        
+        // Handle dropped files
+        function handleFile(file) {
+            const reader = new FileReader();
+            
+            reader.onload = function(e) {
+                const content = e.target.result;
+                const fileName = file.name.toLowerCase();
+                
+                let xyzData;
+                
+                try {
+                    if (fileName.endsWith('.xyz')) {
+                        xyzData = content;
+                    } else if (fileName.endsWith('.cif')) {
+                        xyzData = cifToXyz(content);
+                    } else if (fileName.includes('poscar') || fileName.includes('contcar')) {
+                        xyzData = poscarToXyz(content);
+                    } else {
+                        alert('Unsupported file format. Please use XYZ, CIF, or VASP files.');
+                        return;
+                    }
+                    
+                    // Load the structure
+                    loadCustomStructure(xyzData, fileName);
+                    
+                } catch (error) {
+                    console.error('Error parsing file:', error);
+                    alert('Error parsing file. Please check the format.');
+                }
+            };
+            
+            reader.readAsText(file);
+        }
+        
+        // Load custom structure from file
+        function loadCustomStructure(xyzData, fileName) {
+            currentStructureData = xyzData; // Store for download
+            
+            viewer.clear();
+            viewer.addModel(xyzData, 'xyz');
+            
+            // Style the structure
+            viewer.setStyle({}, {
+                stick: { radius: 0.1 },
+                sphere: { scale: 0.3 }
+            });
+            
+            // Center and zoom to fit
+            viewer.zoomTo();
+            viewer.render();
+            
+            // Show structure info watermark
+            const elements = xyzData.split('\n').slice(2).map(line => {
+                const parts = line.trim().split(/\s+/);
+                return parts[0];
+            }).filter(el => el).reduce((acc, el) => {
+                acc[el] = (acc[el] || 0) + 1;
+                return acc;
+            }, {});
+            
+            const elementList = Object.entries(elements).map(([el, count]) => `${el}${count}`).join(' ');
+            showWatermark(`📁 ${fileName}\n${elementList}`, true);
+        }
+        
+        // Global variable to store current structure data
+        let currentStructureData = '';
+        
+        // Download current structure as XYZ file
+        function downloadStructure() {
+            if (!currentStructureData) {
+                alert('No structure loaded to download.');
+                return;
+            }
+            
+            // Create filename based on current state
+            let filename = 'structure.xyz';
+            const publicationId = document.getElementById('publicationSelect').value;
+            const structureId = document.getElementById('structureSelect').value;
+            
+            if (publicationId && structureId) {
+                filename = `publication_${publicationId}_${structureId}.xyz`;
+            } else {
+                filename = 'water_crystal_5x5x5.xyz';
+            }
+            
+            // Create blob and download
+            const blob = new Blob([currentStructureData], { type: 'text/plain' });
+            const url = URL.createObjectURL(blob);
+            const a = document.createElement('a');
+            a.href = url;
+            a.download = filename;
+            document.body.appendChild(a);
+            a.click();
+            document.body.removeChild(a);
+            URL.revokeObjectURL(url);
+        }
+
+        // Load XYZ structure file
+        async function loadStructure(publicationId, structureId) {
+            try {
+                // Clear viewer
+                viewer.clear();
+                viewer.render();
+                
+                // Construct file path
+                const filePath = `structures/${publicationId}_${structureId}.xyz`;
+                
+                // Load XYZ file
+                const response = await fetch(filePath);
+                if (!response.ok) {
+                    // Show placeholder molecule without error message
+                    viewer.clear();
+                    const placeholderXYZ = `2\nPlaceholder molecule\nC 0.0 0.0 0.0\nO 1.0 0.0 0.0`;
+                    viewer.addModel(placeholderXYZ, 'xyz');
+                    viewer.setStyle({}, {stick: {}, sphere: {scale: 0.3}});
+                    viewer.zoomTo();
+                    viewer.render();
+                    showWatermark(`📊 Publication ${publicationId}\n${structureId}`, true);
+                    return;
+                }
+                
+                const xyzData = await response.text();
+                currentStructureData = xyzData; // Store for download
+                
+                // Clear previous structure and add new one
+                viewer.clear();
+                viewer.addModel(xyzData, 'xyz');
+                
+                // Style the structure
+                viewer.setStyle({}, {
+                    stick: {radius: 0.1},
+                    sphere: {scale: 0.3}
+                });
+                
+                // Center and zoom to fit
+                viewer.zoomTo();
+                viewer.render();
+                
+                // Show publication info watermark
+                showWatermark(`📊 Publication ${publicationId}\n${structureId}`, true);
+                
+            } catch (error) {
+                // Silently handle errors and show placeholder molecule
+                console.log('Structure file not available, showing placeholder');
+                viewer.clear();
+                const placeholderXYZ = `2\nPlaceholder molecule\nC 0.0 0.0 0.0\nO 1.0 0.0 0.0`;
+                viewer.addModel(placeholderXYZ, 'xyz');
+                viewer.setStyle({}, {stick: {}, sphere: {scale: 0.3}});
+                viewer.zoomTo();
+                viewer.render();
+                showWatermark(`📊 Publication ${publicationId}\n${structureId}`, true);
+            }
+        }
+
+        // Theme toggle function
+        function toggleTheme() {
+            const html = document.documentElement;
+            const themeToggle = document.getElementById('theme-toggle');
+            const icon = themeToggle.querySelector('i');
+            
+            if (html.getAttribute('data-theme') === 'dark') {
+                html.removeAttribute('data-theme');
+                icon.className = 'fas fa-moon';
+                localStorage.setItem('theme', 'light');
+            } else {
+                html.setAttribute('data-theme', 'dark');
+                icon.className = 'fas fa-sun';
+                localStorage.setItem('theme', 'dark');
+            }
+        }
+
+        // Initialize everything when page loads
+        document.addEventListener('DOMContentLoaded', function() {
+            // Load saved theme
+            const savedTheme = localStorage.getItem('theme');
+            const themeToggle = document.getElementById('theme-toggle');
+            const icon = themeToggle.querySelector('i');
+            
+            if (savedTheme === 'dark') {
+                document.documentElement.setAttribute('data-theme', 'dark');
+                icon.className = 'fas fa-sun';
+            }
+
+            initViewer();
+            loadPublications();
+            setupDragDrop();
+            
+            // Add event listeners
+            document.getElementById('publicationSelect').addEventListener('change', onPublicationChange);
+            document.getElementById('structureSelect').addEventListener('change', onStructureChange);
+            
+            // Handle window resize
+            window.addEventListener('resize', function() {
+                if (viewer) {
+                    viewer.resize();
+                }
+            });
+        });
+    </script>
+    
+    <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/js/bootstrap.bundle.min.js"></script>
+</body>
+</html>
