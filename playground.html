@@ -120,6 +120,7 @@
             position: relative;
         }
 
+
         .selection-group {
             flex: 0 0 auto;
             min-width: 200px;
@@ -307,6 +308,35 @@
             color: rgba(255, 255, 255, 0.5);
             background: rgba(0, 0, 0, 0.8);
         }
+
+        /* Drag and drop zone */
+        .drop-zone {
+            position: absolute;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            background: rgba(247, 143, 30, 0.1);
+            display: none;
+            align-items: center;
+            justify-content: center;
+            z-index: 100;
+            pointer-events: none;
+        }
+
+        .drop-zone.active {
+            display: flex;
+        }
+
+        .drop-message {
+            background: var(--bg-card);
+            padding: 2rem;
+            border-radius: 10px;
+            border: 2px dashed var(--primary-color);
+            font-size: 1.2rem;
+            color: var(--text-primary);
+            text-align: center;
+        }
     </style>
 </head>
 <body>
@@ -377,28 +407,6 @@
             <div id="viewer"></div>
             
             <!-- Info panel removed -->
-        </div>
-    </div>
-        
-        <div class="control-panel">
-            <div class="selection-group">
-                <label for="publicationSelect">Select Publication:</label>
-                <select id="publicationSelect">
-                    <option value="">Choose a publication...</option>
-                </select>
-            </div>
-            
-            <div class="selection-group">
-                <label for="structureSelect">Select Structure:</label>
-                <select id="structureSelect" disabled>
-                    <option value="">Select publication first...</option>
-                </select>
-            </div>
-        </div>
-        
-        <!-- Full-screen viewer -->
-        <div class="viewer-container">
-            <div id="viewer"></div>
             
             <!-- Drag and Drop Zone -->
             <div class="drop-zone" id="dropZone">
@@ -659,28 +667,247 @@
             }
         }
 
-        // Load default water crystal structure
+        // Load default trajectory
         async function loadDefaultStructure() {
-            const xyzData = await createWaterCrystalStructure();
-            currentStructureData = xyzData; // Store for download
+            try {
+                console.log('Fetching trajectory file...');
+                const response = await fetch('supercell_traj.xyz');
+                if (!response.ok) {
+                    throw new Error('Trajectory file not found: ' + response.status);
+                }
+                
+                const trajData = await response.text();
+                console.log('Trajectory file loaded, size:', trajData.length, 'characters');
+                await loadTrajectory(trajData);
+                
+            } catch (error) {
+                console.error('Error loading trajectory:', error);
+                console.log('Loading fallback water structure');
+                // Fallback to original water structure
+                const xyzData = await createWaterCrystalStructure();
+                currentStructureData = xyzData;
+                
+                viewer.clear();
+                viewer.addModel(xyzData, 'xyz');
+                
+                viewer.setStyle({}, {
+                    stick: { radius: 0.15 },
+                    sphere: { scale: 0.3 }
+                });
+                
+                viewer.zoomTo();
+                viewer.zoom(5.0);
+                viewer.render();
+                
+                showWatermark('🌊 Drag & drop files or choose publications', false);
+            }
+        }
+        
+        // Load and parse trajectory data
+        async function loadTrajectory(trajData) {
+            console.log('Loading trajectory data...');
+            
+            try {
+                // Try 3Dmol.js native multi-frame parsing first
+                viewer.clear();
+                
+                // Try multiple methods for multi-frame XYZ
+                console.log('Using 3Dmol native parsing...');
+                let models;
+                
+                // Try different 3Dmol methods
+                if (typeof viewer.addModelsAsFrames === 'function') {
+                    models = viewer.addModelsAsFrames(trajData, 'xyz');
+                } else if (typeof viewer.addModelsFromData === 'function') {
+                    models = viewer.addModelsFromData(trajData, 'xyz');
+                } else {
+                    throw new Error('No suitable 3Dmol method found');
+                }
+                
+                if (models && models.length > 1) {
+                    totalFrames = models.length;
+                    console.log(`3Dmol loaded ${totalFrames} frames`);
+                    
+                    // Style all frames
+                    viewer.setStyle({}, {
+                        stick: { radius: 0.1 },
+                        sphere: { scale: 0.3 }
+                    });
+                    
+                    viewer.setStyle({elem: 'O'}, {
+                        stick: { radius: 0.1, color: 'red' },
+                        sphere: { scale: 0.4, color: 'red' }
+                    });
+                    
+                    viewer.setStyle({elem: 'H'}, {
+                        stick: { radius: 0.05, color: 'white' },
+                        sphere: { scale: 0.2, color: 'white' }
+                    });
+                    
+                    // Start with frame 0
+                    currentFrame = 0;
+                    if (typeof viewer.setFrame === 'function') {
+                        viewer.setFrame(0);
+                    }
+                    viewer.zoomTo();
+                    viewer.render();
+                    
+                    showWatermark('🎬 Drag & drop files or choose publications', true);
+                    
+                    // Start native auto-play
+                    console.log('Starting native auto-play...');
+                    startNativeAutoPlay();
+                    return;
+                } else if (models && models.length === 1) {
+                    console.log('Only one model loaded, falling back to manual parsing');
+                } else {
+                    console.log('No models loaded, falling back to manual parsing');
+                }
+            } catch (error) {
+                console.log('3Dmol native parsing failed:', error);
+            }
+            
+            // Fallback to manual frame parsing
+            console.log('Fallback to manual parsing...');
+            const lines = trajData.trim().split('\n');
+            allFrames = [];
+            
+            let i = 0;
+            while (i < lines.length) {
+                const numAtoms = parseInt(lines[i]);
+                
+                if (isNaN(numAtoms) || numAtoms <= 0) {
+                    i++;
+                    continue;
+                }
+                
+                if (i + numAtoms + 1 >= lines.length) break;
+                
+                // Extract frame data
+                const frameLines = [];
+                frameLines.push(lines[i]); // number of atoms
+                frameLines.push(lines[i + 1] || `Frame ${allFrames.length}`); // comment line
+                
+                // Add atom lines
+                for (let j = 0; j < numAtoms; j++) {
+                    if (i + 2 + j < lines.length) {
+                        frameLines.push(lines[i + 2 + j]);
+                    }
+                }
+                
+                const frameData = frameLines.join('\n');
+                allFrames.push(frameData);
+                
+                i += numAtoms + 2;
+            }
+            
+            totalFrames = allFrames.length;
+            console.log(`Manually loaded ${totalFrames} frames`);
+            
+            if (totalFrames > 0) {
+                showFrame(0);
+                currentStructureData = allFrames[0];
+                showWatermark('🎬 Drag & drop files or choose publications', true);
+                
+                console.log('Starting manual auto-play...');
+                startAutoPlay();
+            } else {
+                console.error('No frames loaded from trajectory');
+            }
+        }
+        
+        // Display specific frame
+        function showFrame(frameIndex) {
+            if (frameIndex < 0 || frameIndex >= allFrames.length) {
+                console.log('Invalid frame index: ' + frameIndex);
+                return;
+            }
+            
+            currentFrame = frameIndex;
+            const frameData = allFrames[frameIndex];
             
             viewer.clear();
-            viewer.addModel(xyzData, 'xyz');
+            viewer.addModel(frameData, 'xyz');
             
-            // Style the structure
+            // Simple styling - keep original size
             viewer.setStyle({}, {
-                stick: { radius: 0.15 },
+                stick: { radius: 0.1 },
                 sphere: { scale: 0.3 }
             });
             
-            // Center and zoom to 500% for immersion effect
-            viewer.zoomTo();
-            viewer.zoom(5.0); // 500% zoom for water immersion effect
+            // Color oxygen red, hydrogen white
+            viewer.setStyle({elem: 'O'}, {
+                stick: { radius: 0.1, color: 'red' },
+                sphere: { scale: 0.4, color: 'red' }
+            });
+            
+            viewer.setStyle({elem: 'H'}, {
+                stick: { radius: 0.05, color: 'white' },
+                sphere: { scale: 0.2, color: 'white' }
+            });
+            
+            if (frameIndex === 0) {
+                viewer.zoomTo();
+            }
+            
             viewer.render();
             
-            // Show water immersion watermark
-            showWatermark('🌊 You are in the water 🌊\nDrag & drop structure files here', false);
+            // Store current frame for download
+            currentStructureData = frameData;
         }
+        
+        // Update frame information display (removed since no UI elements)
+        function updateFrameInfo() {
+            // No UI elements to update
+        }
+        
+        // Auto-play trajectory (manual parsing)
+        function startAutoPlay() {
+            if (isPlaying || totalFrames === 0) {
+                console.log('Cannot start auto-play: isPlaying=' + isPlaying + ', totalFrames=' + totalFrames);
+                return;
+            }
+            
+            console.log('Starting trajectory playback with ' + totalFrames + ' frames');
+            isPlaying = true;
+            const fps = 10; // Fixed 10 fps
+            
+            playInterval = setInterval(() => {
+                currentFrame = (currentFrame + 1) % totalFrames;
+                console.log('Showing frame ' + currentFrame);
+                showFrame(currentFrame);
+            }, 1000 / fps);
+        }
+        
+        // Auto-play trajectory (3Dmol native)
+        function startNativeAutoPlay() {
+            if (isPlaying || totalFrames === 0) {
+                console.log('Cannot start native auto-play: isPlaying=' + isPlaying + ', totalFrames=' + totalFrames);
+                return;
+            }
+            
+            console.log('Starting native trajectory playback with ' + totalFrames + ' frames');
+            isPlaying = true;
+            const fps = 10; // Fixed 10 fps
+            
+            playInterval = setInterval(() => {
+                currentFrame = (currentFrame + 1) % totalFrames;
+                console.log('Showing native frame ' + currentFrame);
+                
+                if (typeof viewer.setFrame === 'function') {
+                    viewer.setFrame(currentFrame);
+                } else {
+                    // Fallback: show/hide models manually
+                    const models = viewer.getModels();
+                    models.forEach((model, index) => {
+                        model.setVisibility(index === currentFrame);
+                    });
+                }
+                viewer.render();
+            }, 1000 / fps);
+        }
+        
+        // No frame slider handling needed
 
         // Load publications into dropdown
         function loadPublications() {
@@ -971,8 +1198,14 @@
             showWatermark(`📁 ${fileName}\n${elementList}`, true);
         }
         
-        // Global variable to store current structure data
+        // Global variables
         let currentStructureData = '';
+        let trajectoryData = null;
+        let currentFrame = 0;
+        let totalFrames = 0;
+        let isPlaying = false;
+        let playInterval = null;
+        let allFrames = [];
         
         // Download current structure as XYZ file
         function downloadStructure() {
@@ -1097,6 +1330,8 @@
             // Add event listeners
             document.getElementById('publicationSelect').addEventListener('change', onPublicationChange);
             document.getElementById('structureSelect').addEventListener('change', onStructureChange);
+            
+            // No trajectory control listeners needed
             
             // Handle window resize
             window.addEventListener('resize', function() {
